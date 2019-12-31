@@ -26,6 +26,4 @@ public class BaseEntity {
     private long createdBy;
     private long updatedBy;
     private long deletedBy;
-
-
 }
