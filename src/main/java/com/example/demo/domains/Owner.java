@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 @Entity
 public class Owner extends BaseEntity {
+    private static final long serialVersionUID = -19385454577507296L;
+
     private String firstName;
     private String lastName;
     @ManyToMany(mappedBy = "owners")

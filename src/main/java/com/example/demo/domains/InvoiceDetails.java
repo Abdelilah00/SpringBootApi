@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 @Data
 @Entity
 public class InvoiceDetails extends BaseEntity {
+    private static final long serialVersionUID = -19327445457556L;
+
     private String name;
     private int qte;
     @ManyToOne

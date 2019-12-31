@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 @Entity
 public class Store extends BaseEntity {
+    private static final long serialVersionUID = -1938567852507296L;
+
     private String name;
     @ManyToMany
     private List<Owner> owners = new ArrayList<>();

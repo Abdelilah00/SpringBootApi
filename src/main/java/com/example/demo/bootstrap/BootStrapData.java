@@ -3,20 +3,15 @@ package com.example.demo.bootstrap;
 import com.example.demo.domains.Customer;
 import com.example.demo.domains.Invoice;
 import com.example.demo.repositories.IBaseJpaRepository;
+import com.example.demo.repositories.IInvoiceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
-    private IBaseJpaRepository<Invoice> _repoInvocie;
-    private IBaseJpaRepository<Customer> _repoCustomer;
-
-    public BootStrapData(IBaseJpaRepository<Invoice> repoInvocie, IBaseJpaRepository<Customer> repoCustomer) {
-        _repoInvocie = repoInvocie;
-        _repoCustomer = repoCustomer;
-    }
-
-
+   /*@Autowired
+    private IInvoiceRepository _repoInvocie;*/
     @Override
     public void run(String... args) throws Exception {
         /*Customer customer = new Customer();
@@ -28,7 +23,7 @@ public class BootStrapData implements CommandLineRunner {
         invoice.setCustomer(customer);
 
         _repoCustomer.save(customer);
-        _repoInvocie.save(invoice);*/
-        _repoInvocie.findAll();
+        _repoInvocie.save(invoice);
+        _repoInvocie.findAll();*/
     }
 }

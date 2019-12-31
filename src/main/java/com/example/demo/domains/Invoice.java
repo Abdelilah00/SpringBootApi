@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 @Data
 @Entity
 public class Invoice extends BaseEntity {
+    private static final long serialVersionUID = -1938567246027507296L;
+
     private String name;
     @ManyToOne
     private Customer customer;

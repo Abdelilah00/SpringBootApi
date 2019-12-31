@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 @Data
 @Entity
 public class Customer extends BaseEntity {
+    private static final long serialVersionUID = -193856758757507296L;
+
     private String firstName;
     private String lastName;
 }
