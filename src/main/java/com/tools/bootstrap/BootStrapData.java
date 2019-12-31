@@ -1,4 +1,4 @@
-package com.springBootApi.example.bootstrap;
+package com.tools.bootstrap;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

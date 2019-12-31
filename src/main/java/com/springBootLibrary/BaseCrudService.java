@@ -1,7 +1,5 @@
 package com.springBootLibrary;
 
-import com.springBootLibrary.BaseEntity;
-import com.springBootLibrary.IBaseCrudService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
