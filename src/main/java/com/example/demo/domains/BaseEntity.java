@@ -3,7 +3,6 @@ package com.example.demo.domains;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +12,7 @@ import java.util.Date;
 
 @Data
 @MappedSuperclass
-@Component
-public abstract class BaseEntity {
+public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

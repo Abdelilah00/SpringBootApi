@@ -17,7 +17,6 @@ public class BaseCrudService<T extends BaseEntity> implements IBaseCrudService<T
 
     public BaseCrudService(IBaseJpaRepository<T> repository) {
         _repository = repository;
-        System.out.println(_repository);
     }
 
 

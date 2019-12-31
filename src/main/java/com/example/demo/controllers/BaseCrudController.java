@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.domains.BaseEntity;
 import com.example.demo.services.IBaseCrudService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class BaseCrudController<T extends BaseEntity> {
     private final IBaseCrudService<T> _service;
 
-    public BaseCrudController(@Autowired IBaseCrudService<T> service) {
+    public BaseCrudController(IBaseCrudService<T> service) {
         _service = service;
     }
 
