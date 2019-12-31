@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+
 public class BaseCrudController<T extends BaseEntity> {
     @Autowired
     private IBaseJpaRepository<T> _service;
