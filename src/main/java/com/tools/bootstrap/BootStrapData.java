@@ -13,18 +13,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User admin = new User();
-        admin.setActive(true);
-        admin.setUserName("admin");
-        admin.setPassword("admin");
-        admin.setRoles("ADMIN");
-        userRepository.save(admin);
-
-        User user = new User();
-        user.setActive(true);
-        user.setUserName("user");
-        user.setPassword("user");
-        user.setRoles("USER");
-        userRepository.save(user);
+        userRepository.save(new User(0, "admin", "admin", true, "ADMIN"));
+        userRepository.save(new User(0, "user", "user", true, "USER"));
     }
 }
