@@ -18,19 +18,17 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-          .select()                             
+                .select()
           .apis(RequestHandlerSelectors.any())
           .paths(PathSelectors.any())
           .build()
           .apiInfo(apiInfo())
-          .useDefaultResponseMessages(false)                                   
-          ;    
-        
+                .useDefaultResponseMessages(false);
     }
-    
+
     private ApiInfo apiInfo() {
-    	
-    	ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
+
+        ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
     	apiInfoBuilder.title("Generic REST API");
     	apiInfoBuilder.description("Simple REST API Generation");
     	apiInfoBuilder.version("0.0.1-SNAPSHOT");
@@ -38,5 +36,5 @@ public class SwaggerConfig {
 
     	return apiInfoBuilder.build();
     }
-    
+
 }
