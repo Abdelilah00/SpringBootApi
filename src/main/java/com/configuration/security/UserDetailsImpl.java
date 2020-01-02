@@ -1,14 +1,11 @@
-package com.tools.configuration;
+package com.configuration.security;
 
-import com.springBootApi.domains.User;
+import com.configuration.security.domains.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
     private final String userName;
@@ -17,17 +14,17 @@ public class UserDetailsImpl implements UserDetails {
     private List<GrantedAuthority> authorities;
 
 
-    public UserDetailsImpl(String userNmae) {
-        this.userName = userNmae;
+    public UserDetailsImpl(String userName) {
+        this.userName = userName;
     }
 
     public UserDetailsImpl(User user) {
         userName = user.getUserName();
         password = user.getPassword();
         active = user.isActive();
-        authorities = Arrays.stream(user.getRoles().split(","))
+        /*authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override

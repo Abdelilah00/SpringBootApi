@@ -1,4 +1,5 @@
-package com.springBootApi.domains;
+package com.configuration.security.domains;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +14,11 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String userName;
     private String password;
-    private boolean active;
-    private String roles;
+    private boolean enabled;
 }

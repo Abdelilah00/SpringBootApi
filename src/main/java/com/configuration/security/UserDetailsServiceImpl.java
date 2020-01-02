@@ -1,6 +1,6 @@
-package com.tools.configuration;
+package com.configuration.security;
 
-import com.springBootApi.domains.User;
+import com.configuration.security.domains.User;
 import com.springBootApi.repositorys.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
