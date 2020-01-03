@@ -1,22 +1,38 @@
 package com.configuration.security;
 
 import com.configuration.security.domains.User;
-import com.springBootApi.repositorys.IUserRepository;
+import com.configuration.security.repositorys.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private IUserRepository IUserRepository;
+    private IUserRepository userRepository;
+
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<User> user = IUserRepository.findByUserName(userName);
-        user.orElseThrow(() -> new UsernameNotFoundException("Not Found" + userName));
-        return user.map(UserDetailsImpl::new).get();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final User user = userRepository.findByUserName(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User '" + username + "' not found");
+        }
+
+        return org.springframework.security.core.userdetails.User//
+                .withUsername(username)//
+                .password(user.getPassword())//
+                .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList()))//
+                .accountExpired(false)//
+                .accountLocked(false)//
+                .credentialsExpired(false)//
+                .disabled(false)//
+                .build();
     }
 }

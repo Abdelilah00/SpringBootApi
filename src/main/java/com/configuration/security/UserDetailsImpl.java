@@ -1,45 +1,31 @@
 package com.configuration.security;
 
 import com.configuration.security.domains.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
+@Data
 public class UserDetailsImpl implements UserDetails {
-    private final String userName;
-    private String password;
-    private boolean active;
-    private List<GrantedAuthority> authorities;
-
-
-    public UserDetailsImpl(String userName) {
-        this.userName = userName;
-    }
-
-    public UserDetailsImpl(User user) {
-        userName = user.getUserName();
-        password = user.getPassword();
-        active = user.isActive();
-        /*authorities = Arrays.stream(user.getRoles().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());*/
-    }
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("" + role)).collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return user.getUserName();
     }
 
     @Override
@@ -59,6 +45,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return user.isActive();
     }
 }

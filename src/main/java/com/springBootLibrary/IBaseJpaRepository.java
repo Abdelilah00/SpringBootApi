@@ -1,6 +1,5 @@
 package com.springBootLibrary;
 
-import com.springBootLibrary.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
