@@ -1,6 +1,6 @@
 package com.configuration.security;
 
-import com.configuration.security.jwt.JwtTokenProvider;
+import com.configuration.security.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,14 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final String[] PUBLIC_ENDPOINTS = {"/api/**"};
+    private final String[] PUBLIC_ENDPOINTS = {"/api/auth/**"};
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
 
     @Bean
     @Override
@@ -33,12 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().and().cors().disable();
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+                .antMatchers("/api/customers").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/api/owners").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/invoices").hasAuthority("ROLE_All")
+                .antMatchers(PUBLIC_ENDPOINTS).permitAll();
+        //.anyRequest().authenticated();
+        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -50,10 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")//
                 .antMatchers("/public");
     }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public JwtTokenFilter jwtTokenFilter() {
+        return new JwtTokenFilter();
+    }
 
 }
