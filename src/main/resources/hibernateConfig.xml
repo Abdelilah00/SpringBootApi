@@ -12,7 +12,7 @@
         <mapping class="com.springBootApi.domains.Owner"/>
         <mapping class="com.springBootApi.domains.Product"/>
         <mapping class="com.springBootApi.domains.Store"/>
-        <mapping class="com.springBootApi.domains.User"/>
+        <mapping class="com.configuration.security.domains.User"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
