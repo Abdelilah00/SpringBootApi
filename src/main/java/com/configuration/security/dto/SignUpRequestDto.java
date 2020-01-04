@@ -1,9 +1,6 @@
 package com.configuration.security.dto;
 
-import lombok.Data;
-
-@Data
-public class SignInRequest {
+public class SignUpRequestDto {
     private String userName;
     private String password;
 }

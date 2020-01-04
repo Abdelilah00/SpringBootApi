@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' not found");
         }
 
-        UserDetails userDetails = org.springframework.security.core.userdetails.User//
+        return org.springframework.security.core.userdetails.User//
                 .withUsername(username)//
                 .password(user.getPassword())//
                 .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()))//
@@ -33,6 +33,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .credentialsExpired(false)//
                 .disabled(false)//
                 .build();
-        return userDetails;
     }
 }

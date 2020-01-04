@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/invoices")
+@RequestMapping("api/user/invoices")
 public class InvoicesController extends BaseCrudController<Invoice> {
 }

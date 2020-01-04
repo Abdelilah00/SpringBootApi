@@ -34,11 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/api/customers").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers("/api/owners").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/api/invoices").hasAuthority("ROLE_All")
-                .antMatchers(PUBLIC_ENDPOINTS).permitAll();
-        //.anyRequest().authenticated();
+                .antMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
+                .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

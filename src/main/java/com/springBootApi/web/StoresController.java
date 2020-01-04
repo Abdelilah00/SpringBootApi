@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/Stores")
+@RequestMapping("api/admin/Stores")
 public class StoresController extends BaseCrudController<Store> {
 }
