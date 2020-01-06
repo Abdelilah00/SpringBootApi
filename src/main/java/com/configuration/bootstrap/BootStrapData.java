@@ -3,11 +3,14 @@ package com.configuration.bootstrap;
 import com.configuration.security.domains.Role;
 import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
+import com.springBootApi.domains.Product;
+import com.springBootApi.repositorys.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Component
@@ -16,9 +19,15 @@ public class BootStrapData implements CommandLineRunner {
     private IUserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+
+        productRepository.save(new Product("Bimoo", new ArrayList<>()));
+        productRepository.save(new Product("Picala", new ArrayList<>()));
         Role userRole = new Role();
         userRole.setName("ROLE_USER");
 
