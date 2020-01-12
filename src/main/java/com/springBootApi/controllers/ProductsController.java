@@ -1,11 +1,11 @@
-package com.springBootApi.web;
+package com.springBootApi.controllers;
 
-import com.springBootApi.domains.Owner;
+import com.springBootApi.domains.Product;
 import com.springBootLibrary.BaseCrudController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/admin/owners")
-public class OwnersController extends BaseCrudController<Owner> {
+@RequestMapping("api/user/products")
+public class ProductsController extends BaseCrudController<Product> {
 }
