@@ -24,4 +24,5 @@ public class User {
     private boolean active;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Role> roles;
+
 }

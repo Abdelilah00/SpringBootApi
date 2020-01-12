@@ -1,5 +1,6 @@
 package com.springBootLibrary;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,14 +12,14 @@ import java.util.List;
 
 public class BaseCrudController<T extends BaseEntity> {
     @Autowired
-    private IBaseJpaRepository<T> _service;
+    private IBaseJpaRepository<T> _repository;
 
     /*
         @Async
     */
     @RequestMapping(method = RequestMethod.GET)
     public List<T> list() {
-        return _service.findAll();
+        return Lists.newArrayList(_repository.findAllActive());
     }
 
     /*
@@ -26,7 +27,7 @@ public class BaseCrudController<T extends BaseEntity> {
     */
     @RequestMapping(method = RequestMethod.POST)
     public T create(@RequestBody T entity) {
-        return _service.save(entity);
+        return _repository.save(entity);
     }
 
     /*
@@ -34,7 +35,7 @@ public class BaseCrudController<T extends BaseEntity> {
     */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public T update(@PathVariable(value = "id") long id, @RequestBody T entity) {
-        return _service.save(entity);
+        return _repository.save(entity);
     }
 
     /*
@@ -42,7 +43,7 @@ public class BaseCrudController<T extends BaseEntity> {
     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") long id) {
-        _service.deleteById(id);
+        _repository.softDelete(id);
     }
 
     /*
@@ -50,6 +51,6 @@ public class BaseCrudController<T extends BaseEntity> {
     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public T get(@PathVariable(value = "id") long id) {
-        return _service.getOne(id);
+        return _repository.getOne(id);
     }
 }

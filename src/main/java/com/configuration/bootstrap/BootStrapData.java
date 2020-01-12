@@ -1,6 +1,7 @@
 package com.configuration.bootstrap;
 
 import com.configuration.security.domains.Role;
+import com.configuration.security.domains.RoleName;
 import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Product;
@@ -29,10 +30,10 @@ public class BootStrapData implements CommandLineRunner {
         productRepository.save(new Product("Bimoo", new ArrayList<>()));
         productRepository.save(new Product("Picala", new ArrayList<>()));
         Role userRole = new Role();
-        userRole.setName("ROLE_USER");
+        userRole.setName(RoleName.ROLE_USER);
 
         Role adminRole = new Role();
-        adminRole.setName("ROLE_ADMIN");
+        adminRole.setName(RoleName.ROLE_ADMIN);
 
         userRepository.save(new User(0, "admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole)));
         userRepository.save(new User(0, "user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole)));

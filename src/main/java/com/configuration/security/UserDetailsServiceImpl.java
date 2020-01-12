@@ -23,15 +23,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User '" + username + "' not found");
         }
-
         return org.springframework.security.core.userdetails.User//
                 .withUsername(username)//
                 .password(user.getPassword())//
-                .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()))//
+                .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList()))//
                 .accountExpired(false)//
                 .accountLocked(false)//
                 .credentialsExpired(false)//
                 .disabled(false)//
                 .build();
     }
+
 }
