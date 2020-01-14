@@ -1,10 +1,10 @@
 package com.springBootApi.services;
 
-import com.springBootApi.domains.Customer;
+import com.springBootApi.Dtos.OwnerDto;
 import com.springBootLibrary.IBaseCrudService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ICustomerService extends IBaseCrudService<Customer> {
+public interface IOwnerService extends IBaseCrudService<OwnerDto> {
 
 }

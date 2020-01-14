@@ -1,5 +1,6 @@
 package com.springBootLibrary;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
-public class BaseCrudService<T extends BaseEntity> implements IBaseCrudService<T> {
+public class BaseCrudService<T extends BaseEntityDto> implements IBaseCrudService<T> {
+    @Autowired
+    private IBaseJpaRepository<T> repository;
+
     @Override
     public List<T> findAll() {
         return null;
@@ -48,7 +51,7 @@ public class BaseCrudService<T extends BaseEntity> implements IBaseCrudService<T
 
     @Override
     public T getOne(Long aLong) {
-        return null;
+        return repository.getOne(aLong);
     }
 
     @Override
