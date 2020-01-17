@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 @Repository
-public interface IBaseJpaRepository<T extends IdEntity> extends JpaRepository<T, Serializable> {
+public interface IBaseJpaRepository<T extends BaseEntity> extends JpaRepository<T, Serializable> {
 
 }
 

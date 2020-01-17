@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
-public interface IBaseCrudService<T extends IdEntity> {
+public interface IBaseCrudService<T extends BaseEntity> {
     List<T> findAll();
 
     List<T> findAll(Sort sort);

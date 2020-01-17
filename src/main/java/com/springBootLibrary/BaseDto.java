@@ -6,6 +6,5 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public abstract class BaseEntityDto extends IdEntity {
-
+public abstract class BaseDto extends BaseEntity {
 }

@@ -4,8 +4,7 @@ import com.springBootLibrary.BaseDto;
 import lombok.Data;
 
 @Data
-public class OwnerDto extends BaseDto {
+public class CustomerDto extends BaseDto {
     private String firstName;
     private String lastName;
 }
-

@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class BaseCrudService<T extends IdEntity> implements IBaseCrudService<T> {
+public class BaseCrudServiceImpl<T extends BaseEntity> implements IBaseCrudService<T> {
     @Autowired
     private IBaseJpaRepository<T> repository;
 
     @Override
     public List<T> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
