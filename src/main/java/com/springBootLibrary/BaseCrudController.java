@@ -26,6 +26,8 @@ public class BaseCrudController<T extends BaseDto> {
     */
     @RequestMapping(method = RequestMethod.POST)
     public T create(@RequestBody T entity) {
+        /*ModelMapper modelMapper = new ModelMapper();
+        T x = modelMapper.map();*/
         return repository.save(entity);
     }
 
