@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class BaseCrudService<T extends BaseEntityDto> implements IBaseCrudService<T> {
+public class BaseCrudService<T extends IdEntity> implements IBaseCrudService<T> {
     @Autowired
     private IBaseJpaRepository<T> repository;
 
@@ -21,11 +21,6 @@ public class BaseCrudService<T extends BaseEntityDto> implements IBaseCrudServic
 
     @Override
     public List<T> findAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public List<T> findAllById(Iterable<Long> longs) {
         return null;
     }
 

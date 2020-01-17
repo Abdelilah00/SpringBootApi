@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-public class BaseCrudController<T extends BaseEntityId> {
+public class BaseCrudController<T extends IdEntity> {
     @Autowired
     private IBaseJpaRepository<T> repository;
 
     /*
-        @Async
-    */
+            @Async
+        */
     @RequestMapping(method = RequestMethod.GET)
     public List<T> list() {
         return repository.findAll();
