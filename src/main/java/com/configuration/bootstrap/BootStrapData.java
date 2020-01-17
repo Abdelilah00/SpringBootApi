@@ -5,8 +5,7 @@ import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Owner;
 import com.springBootApi.domains.Product;
-import com.springBootApi.repositorys.IOwnerRepository;
-import com.springBootApi.repositorys.IProductRepository;
+import com.springBootLibrary.IBaseJpaRepository;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,9 +22,9 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private IProductRepository productRepository;
+    private IBaseJpaRepository<Product> productRepository;
     @Autowired
-    private IOwnerRepository ownerRepository;
+    private IBaseJpaRepository<Owner> ownerRepository;
 
     @Override
     public void run(String... args) throws Exception {
