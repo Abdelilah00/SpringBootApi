@@ -1,5 +1,6 @@
-package com.springBootLibrary;
+package com.springBootLibrary.services;
 
+import com.springBootLibrary.models.IdEntity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
-public interface IBaseCrudService<T extends BaseEntity> {
+public interface IBaseCrudService<T extends IdEntity> {
     List<T> findAll();
 
     List<T> findAll(Sort sort);

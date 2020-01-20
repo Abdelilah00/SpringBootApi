@@ -1,7 +1,7 @@
 package com.springBootApi.controllers;
 
 import com.springBootApi.Dtos.ProducDto;
-import com.springBootLibrary.BaseCrudController;
+import com.springBootLibrary.controllers.BaseCrudController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,6 +1,6 @@
 package com.springBootApi.domains;
 
-import com.springBootLibrary.BaseEntity;
+import com.springBootLibrary.models.IdEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
-public class Owner extends BaseEntity {
+public class Owner extends IdEntity {
     private static final long serialVersionUID = -19385454577507296L;
 
     private String firstName;

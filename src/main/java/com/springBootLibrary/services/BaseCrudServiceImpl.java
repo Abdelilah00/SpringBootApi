@@ -1,5 +1,7 @@
-package com.springBootLibrary;
+package com.springBootLibrary.services;
 
+import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.repositorys.IBaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class BaseCrudServiceImpl<T extends BaseEntity> implements IBaseCrudService<T> {
+public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService<T> {
     @Autowired
     private IBaseJpaRepository<T> repository;
 

@@ -1,10 +1,10 @@
 package com.springBootApi.Dtos;
 
-import com.springBootLibrary.BaseDto;
+import com.springBootLibrary.models.IdEntity;
 import lombok.Data;
 
 @Data
-public class OwnerDto extends BaseDto {
+public class OwnerDto extends IdEntity {
     private String firstName;
     private String lastName;
 }

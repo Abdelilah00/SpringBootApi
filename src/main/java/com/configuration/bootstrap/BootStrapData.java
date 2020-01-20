@@ -5,7 +5,7 @@ import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Owner;
 import com.springBootApi.domains.Product;
-import com.springBootLibrary.IBaseJpaRepository;
+import com.springBootLibrary.repositorys.IBaseJpaRepository;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
