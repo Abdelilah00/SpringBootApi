@@ -1,7 +1,9 @@
 package com.springBootLibrary.controllers;
 
+import com.springBootLibrary.EntityMapping;
 import com.springBootLibrary.models.IdEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,33 +13,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-public class BaseCrudController<T extends IdEntity> {
+public class BaseCrudController<TEntity extends IdEntity, TDto extends IdEntity> extends EntityMapping<TEntity, TDto> {
     @Autowired
-    private IBaseJpaRepository<T> repository;
+    private IBaseJpaRepository<TEntity> repository;
 
     /*
             @Async
         */
     @RequestMapping(method = RequestMethod.GET)
-    public List<T> list() {
-        return repository.findAll();
+    public List<TDto> list() {
+        var x = repository.findAll();
+        return convertToDtoList(x);
     }
 
     /*
         @Async
     */
     @RequestMapping(method = RequestMethod.POST)
-    public T create(@RequestBody T entity) {
-        return repository.save(entity);
+    public TDto create(@RequestBody TDto dto) {
+        var x = convertToEntity(dto);
+        var xx = repository.save(x);
+        return convertToDto(xx);
     }
 
     /*
         @Async
     */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public T update(@PathVariable(value = "id") long id, @RequestBody T entity) {
-
-        return repository.save(entity);
+    public TDto update(@PathVariable(value = "id") long id, @RequestBody TDto dto) {
+        var x = convertToEntity(dto);
+        var xx = repository.save(x);
+        return convertToDto(xx);
     }
 
     /*
@@ -52,7 +58,8 @@ public class BaseCrudController<T extends IdEntity> {
         @Async
     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public T get(@PathVariable(value = "id") long id) {
-        return repository.getOne(id);
+    public TDto get(@PathVariable(value = "id") long id) {
+        var x = repository.getOne(id);
+        return convertToDto(x);
     }
 }

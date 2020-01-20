@@ -1,12 +1,13 @@
 package com.springBootLibrary;
 
+import com.springBootLibrary.models.IdEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityMapping<TEntity, TDto> {
+public class EntityMapping<TEntity extends IdEntity, TDto extends IdEntity> {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
