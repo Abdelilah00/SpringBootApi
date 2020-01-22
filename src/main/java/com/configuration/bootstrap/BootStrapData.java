@@ -5,7 +5,7 @@ import com.configuration.security.domains.RoleName;
 import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Product;
-import com.springBootApi.repositorys.IProductRepository;
+import com.springBootLibrary.repositorys.IBaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +21,7 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private IProductRepository productRepository;
+    private IBaseJpaRepository<Product> productRepository;
 
     @Override
     public void run(String... args) throws Exception {

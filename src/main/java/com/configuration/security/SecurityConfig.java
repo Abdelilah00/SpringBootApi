@@ -1,6 +1,5 @@
 package com.configuration.security;
 
-import com.configuration.security.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +17,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final String[] PUBLIC_ENDPOINTS = {"/api/auth/**"};
+
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-       /* http.authorizeRequests()
+       /*http.authorizeRequests()
                 .antMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers(PUBLIC_ENDPOINTS).permitAll()
@@ -71,9 +71,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+  /*  @Bean
     public JwtTokenFilter jwtTokenFilter() {
         return new JwtTokenFilter();
-    }
+    }*/
 
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public abstract class UserTracking implements Serializable {
-    /* @CreationTimestamp
+    /*@CreationTimestamp
     private Date createdAt;
     @UpdateTimestamp
     private Date updatedAt;
