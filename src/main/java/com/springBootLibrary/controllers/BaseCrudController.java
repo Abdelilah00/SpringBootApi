@@ -17,6 +17,10 @@ public class BaseCrudController<TEntity extends IdEntity, TDto extends IdEntity>
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
 
+    public BaseCrudController(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
+        super(tEntityClass, tDtoClass);
+    }
+
     /*
             @Async
         */

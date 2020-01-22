@@ -2,18 +2,19 @@ package com.springBootLibrary;
 
 import com.springBootLibrary.entitys.IdEntity;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityMapping<TEntity extends IdEntity, TDto extends IdEntity> {
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
+public class EntityMapping<TEntity extends IdEntity, TDto extends IdEntity> extends ModelMapper {
+
     private Class<TEntity> entityClass;
-    @Autowired
     private Class<TDto> dtoClass;
+
+    public EntityMapping(Class<TEntity> entityClass, Class<TDto> dtoClass) {
+        this.entityClass = entityClass;
+        this.dtoClass = dtoClass;
+    }
 
     protected List<TDto> convertToDtoList(List<TEntity> entityList) {
         return entityList.stream()
@@ -28,10 +29,10 @@ public class EntityMapping<TEntity extends IdEntity, TDto extends IdEntity> {
     }
 
     protected TDto convertToDto(TEntity entity) {
-        return modelMapper.map(entity, dtoClass);
+        return map(entity, dtoClass);
     }
 
     protected TEntity convertToEntity(TDto dto) {
-        return modelMapper.map(dto, entityClass);
+        return map(dto, entityClass);
     }
 }
