@@ -1,6 +1,6 @@
 package com.springBootApi.Dtos;
 
-import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.entitys.IdEntity;
 import lombok.Data;
 
 @Data

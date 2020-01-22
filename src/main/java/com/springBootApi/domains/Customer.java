@@ -1,6 +1,6 @@
 package com.springBootApi.domains;
 
-import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.entitys.IdEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

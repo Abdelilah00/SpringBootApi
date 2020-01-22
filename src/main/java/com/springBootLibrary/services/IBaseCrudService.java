@@ -1,6 +1,6 @@
 package com.springBootLibrary.services;
 
-import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.entitys.IdEntity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

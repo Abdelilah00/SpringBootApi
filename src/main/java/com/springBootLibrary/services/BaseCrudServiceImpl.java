@@ -1,6 +1,6 @@
 package com.springBootLibrary.services;
 
-import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.entitys.IdEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

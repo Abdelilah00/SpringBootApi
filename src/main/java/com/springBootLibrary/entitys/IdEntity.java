@@ -1,4 +1,4 @@
-package com.springBootLibrary.models;
+package com.springBootLibrary.entitys;
 
 import lombok.Data;
 
