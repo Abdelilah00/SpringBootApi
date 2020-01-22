@@ -1,5 +1,8 @@
-package com.springBootLibrary;
+package com.springBootLibrary.services;
 
+import com.springBootLibrary.models.IdEntity;
+import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,21 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
-public class BaseCrudService<T extends BaseEntity> implements IBaseCrudService<T> {
+public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService<T> {
+    @Autowired
+    private IBaseJpaRepository<T> repository;
+
     @Override
     public List<T> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public List<T> findAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public List<T> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class BaseCrudService<T extends BaseEntity> implements IBaseCrudService<T
 
     @Override
     public T getOne(Long aLong) {
-        return null;
+        return repository.getOne(aLong);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.springBootLibrary.models.IdEntity;
 import lombok.Data;
 
 @Data
-public class CustomerDto extends IdEntity {
+public class ProducDto extends IdEntity {
     private String firstName;
     private String lastName;
 }
