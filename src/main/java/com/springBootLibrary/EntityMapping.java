@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityMapping<TEntity extends IdEntity, TDto extends IdEntity> extends ModelMapper {
+public class EntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
 
     private Class<TEntity> entityClass;
     private Class<TDto> dtoClass;

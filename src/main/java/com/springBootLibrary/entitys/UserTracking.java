@@ -2,11 +2,10 @@ package com.springBootLibrary.entitys;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Data
-@Embeddable
+//@Embeddable
 public abstract class UserTracking implements Serializable {
     /*@CreationTimestamp
     private Date createdAt;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-public class BaseCrudController<TEntity extends IdEntity, TDto extends IdEntity> extends EntityMapping<TEntity, TDto> {
+public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMapping<TEntity, TDto> {
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
 
