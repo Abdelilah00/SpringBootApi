@@ -18,14 +18,17 @@ import java.util.Collections;
 public class BootStrapData implements CommandLineRunner {
     @Autowired
     private IUserRepository userRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    //@Qualifier("IProductRepository")
     @Autowired
     private IBaseJpaRepository<Product> productRepository;
 
+
     @Override
     public void run(String... args) throws Exception {
-
 
         productRepository.save(new Product("Bimoo", new ArrayList<>()));
         productRepository.save(new Product("Picala", new ArrayList<>()));

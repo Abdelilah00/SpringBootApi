@@ -5,6 +5,6 @@ import com.springBootLibrary.services.BaseCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService extends BaseCrudServiceImpl<Product> {
+public class CustomerService extends BaseCrudServiceImpl<Product> {
 
 }
