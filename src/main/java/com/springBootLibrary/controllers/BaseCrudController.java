@@ -1,8 +1,8 @@
 package com.springBootLibrary.controllers;
 
-import com.springBootLibrary.EntityMapping;
 import com.springBootLibrary.entitys.IdEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import com.springBootLibrary.utilis.EntityMapping;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

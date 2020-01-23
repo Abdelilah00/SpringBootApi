@@ -8,11 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import javax.persistence.MappedSuperclass;
 import java.util.List;
 import java.util.Optional;
 
-@MappedSuperclass
+//@MappedSuperclass
 public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService<T> {
     //@Qualifier("IProductRepository")
     @Autowired
