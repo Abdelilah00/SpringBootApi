@@ -8,41 +8,41 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
-public interface IBaseCrudService<T> {
-    List<T> findAll();
+public interface IBaseCrudService<TEntity> {
+    List<TEntity> findAll();
 
-    List<T> findAll(Sort sort);
+    List<TEntity> findAll(Sort sort);
 
-    List<T> findAll(Example<T> example);
+    List<TEntity> findAll(Example<TEntity> example);
 
-    List<T> findAll(Example<T> example, Sort sort);
+    List<TEntity> findAll(Example<TEntity> example, Sort sort);
 
-    Page<T> findAll(Pageable pageable);
+    Page<TEntity> findAll(Pageable pageable);
 
-    List<T> saveAll(Iterable<T> entities);
+    List<TEntity> saveAll(Iterable<TEntity> entities);
 
-    T saveAndFlush(T entity);
+    TEntity saveAndFlush(TEntity entity);
 
-    void deleteInBatch(Iterable<T> entities);
+    void deleteInBatch(Iterable<TEntity> entities);
 
     void deleteAllInBatch();
 
-    T getOne(Long aLong);
+    TEntity getOne(Long aLong);
 
 
-    T save(T entity);
+    TEntity save(TEntity entity);
 
-    Optional<T> findById(Long aLong);
+    Optional<TEntity> findById(Long aLong);
 
     void deleteById(Long aLong);
 
-    void delete(T entity);
+    void delete(TEntity entity);
 
-    void deleteAll(Iterable<? extends T> entities);
+    void deleteAll(Iterable<? extends TEntity> entities);
 
     void deleteAll();
 
-    Optional<T> findOne(Example<T> example);
+    Optional<TEntity> findOne(Example<TEntity> example);
 
-    Page<T> findAll(Example<T> example, Pageable pageable);
+    Page<TEntity> findAll(Example<TEntity> example, Pageable pageable);
 }

@@ -22,7 +22,6 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //@Qualifier("IProductRepository")
     @Autowired
     private IBaseJpaRepository<Product> productRepository;
 

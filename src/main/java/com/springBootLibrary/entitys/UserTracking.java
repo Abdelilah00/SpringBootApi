@@ -1,12 +1,15 @@
 package com.springBootLibrary.entitys;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-//@Embeddable
-public abstract class UserTracking implements Serializable {
+@MappedSuperclass
+public abstract class UserTracking extends IdEntity implements Serializable {
     /*@CreationTimestamp
     private Date createdAt;
     @UpdateTimestamp

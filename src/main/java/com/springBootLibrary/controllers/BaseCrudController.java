@@ -1,7 +1,7 @@
 package com.springBootLibrary.controllers;
 
 import com.springBootLibrary.entitys.IdEntity;
-import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.EntityMapping;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,8 @@ import java.util.List;
 
 public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMapping<TEntity, TDto> {
 
-    //@Qualifier("IProductRepository")
     @Autowired
-    private IBaseJpaRepository<TEntity> repository;
+    private IBaseCrudService<TEntity> service;
 
     public BaseCrudController(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
         super(tEntityClass, tDtoClass);
@@ -27,7 +26,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
         */
     @RequestMapping(method = RequestMethod.GET)
     public List<TDto> list() {
-        var x = repository.findAll();
+        var x = service.findAll();
         return convertToDtoList(x);
     }
 
@@ -37,7 +36,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
     @RequestMapping(method = RequestMethod.POST)
     public TDto create(@RequestBody TDto dto) {
         var x = convertToEntity(dto);
-        var xx = repository.save(x);
+        var xx = service.save(x);
         return convertToDto(xx);
     }
 
@@ -47,7 +46,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public TDto update(@PathVariable(value = "id") long id, @RequestBody TDto dto) {
         var x = convertToEntity(dto);
-        var xx = repository.save(x);
+        var xx = service.save(x);
         return convertToDto(xx);
     }
 
@@ -56,7 +55,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") long id) {
-        repository.deleteById(id);
+        service.deleteById(id);
     }
 
     /*
@@ -64,7 +63,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public TDto get(@PathVariable(value = "id") long id) {
-        var x = repository.getOne(id);
+        var x = service.getOne(id);
         return convertToDto(x);
     }
 }

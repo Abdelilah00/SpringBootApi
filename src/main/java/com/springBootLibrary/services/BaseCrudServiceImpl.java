@@ -11,34 +11,32 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
-//@MappedSuperclass
-public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService<T> {
-    //@Qualifier("IProductRepository")
+public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudService<TEntity> {
     @Autowired
-    private IBaseJpaRepository<T> repository;
+    private IBaseJpaRepository<TEntity> repository;
 
     @Override
-    public List<T> findAll() {
+    public List<TEntity> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<T> findAll(Sort sort) {
+    public List<TEntity> findAll(Sort sort) {
         return null;
     }
 
     @Override
-    public List<T> saveAll(Iterable<T> entities) {
+    public List<TEntity> saveAll(Iterable<TEntity> entities) {
         return null;
     }
 
     @Override
-    public T saveAndFlush(T entity) {
+    public TEntity saveAndFlush(TEntity entity) {
         return null;
     }
 
     @Override
-    public void deleteInBatch(Iterable<T> entities) {
+    public void deleteInBatch(Iterable<TEntity> entities) {
 
     }
 
@@ -48,32 +46,32 @@ public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService
     }
 
     @Override
-    public T getOne(Long aLong) {
+    public TEntity getOne(Long aLong) {
         return repository.getOne(aLong);
     }
 
     @Override
-    public List<T> findAll(Example<T> example) {
+    public List<TEntity> findAll(Example<TEntity> example) {
         return null;
     }
 
     @Override
-    public List<T> findAll(Example<T> example, Sort sort) {
+    public List<TEntity> findAll(Example<TEntity> example, Sort sort) {
         return null;
     }
 
     @Override
-    public Page<T> findAll(Pageable pageable) {
+    public Page<TEntity> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public T save(T entity) {
+    public TEntity save(TEntity entity) {
         return null;
     }
 
     @Override
-    public Optional<T> findById(Long aLong) {
+    public Optional<TEntity> findById(Long aLong) {
         return Optional.empty();
     }
 
@@ -83,12 +81,12 @@ public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(TEntity entity) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<? extends T> entities) {
+    public void deleteAll(Iterable<? extends TEntity> entities) {
 
     }
 
@@ -98,12 +96,12 @@ public class BaseCrudServiceImpl<T extends IdEntity> implements IBaseCrudService
     }
 
     @Override
-    public Optional<T> findOne(Example<T> example) {
+    public Optional<TEntity> findOne(Example<TEntity> example) {
         return Optional.empty();
     }
 
     @Override
-    public Page<T> findAll(Example<T> example, Pageable pageable) {
+    public Page<TEntity> findAll(Example<TEntity> example, Pageable pageable) {
         return null;
     }
 }
