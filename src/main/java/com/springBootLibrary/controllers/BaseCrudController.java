@@ -26,9 +26,16 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
 
     @Async
     @RequestMapping(method = RequestMethod.GET)
-    public CompletableFuture<List<TDto>> list() {
+    public CompletableFuture<List<TDto>> getAll() {
         var x = service.findAll();
         return CompletableFuture.completedFuture(convertToDtoList(x));
+    }
+
+    @Async
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public TDto getOne(@PathVariable(value = "id") long id) {
+        var x = service.getOne(id);
+        return convertToDto(x);
     }
 
     @Async
@@ -51,13 +58,5 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") long id) {
         service.deleteById(id);
-    }
-
-
-    @Async
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TDto get(@PathVariable(value = "id") long id) {
-        var x = service.getOne(id);
-        return convertToDto(x);
     }
 }
