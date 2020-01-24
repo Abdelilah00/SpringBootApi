@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/admin/customers")
 public class CustomersController extends BaseCrudController<Customer, CustomerDto> {
+
     public CustomersController() {
         super(Customer.class, CustomerDto.class);
     }

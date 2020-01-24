@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/user/products")
 public class ProductsController extends BaseCrudController<Product, ProducDto> {
+
     public ProductsController() {
         super(Product.class, ProducDto.class);
     }

@@ -2,7 +2,7 @@ package com.springBootLibrary.controllers;
 
 import com.springBootLibrary.entitys.IdEntity;
 import com.springBootLibrary.services.IBaseCrudService;
-import com.springBootLibrary.utilis.EntityMapping;
+import com.springBootLibrary.utilis.ModelEntityMapping;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMapping<TEntity, TDto> {
+public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEntityMapping<TEntity, TDto> {
 
     @Autowired
     private IBaseCrudService<TEntity> service;
@@ -20,6 +20,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends EntityMa
     public BaseCrudController(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
         super(tEntityClass, tDtoClass);
     }
+
 
     /*
             @Async

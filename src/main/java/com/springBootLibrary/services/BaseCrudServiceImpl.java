@@ -77,7 +77,7 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
 
     @Override
     public void deleteById(Long aLong) {
-
+        repository.deleteById(aLong);
     }
 
     @Override

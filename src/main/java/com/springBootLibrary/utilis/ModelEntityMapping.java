@@ -6,12 +6,13 @@ import org.modelmapper.ModelMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
+public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
 
     private Class<TEntity> entityClass;
     private Class<TDto> dtoClass;
 
-    public EntityMapping(Class<TEntity> entityClass, Class<TDto> dtoClass) {
+
+    protected ModelEntityMapping(Class<TEntity> entityClass, Class<TDto> dtoClass) {
         this.entityClass = entityClass;
         this.dtoClass = dtoClass;
     }
@@ -29,10 +30,12 @@ public class EntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
     }
 
     protected TDto convertToDto(TEntity entity) {
+        //Assert.notNull(entity, "null Entity");
         return map(entity, dtoClass);
     }
 
     protected TEntity convertToEntity(TDto dto) {
+        //Assert.notNull(dto, "null dto");
         return map(dto, entityClass);
     }
 }
