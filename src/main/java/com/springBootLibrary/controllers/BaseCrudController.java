@@ -28,7 +28,8 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     @RequestMapping(method = RequestMethod.GET)
     public CompletableFuture<List<TDto>> list() {
         var x = service.findAll();
-        return CompletableFuture.completedFuture(convertToDtoList(x));
+        var xx = convertToDtoList(x);
+        return CompletableFuture.completedFuture(xx);
     }
 
     @Async

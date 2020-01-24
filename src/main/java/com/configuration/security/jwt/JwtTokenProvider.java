@@ -81,4 +81,7 @@ public class JwtTokenProvider {
         }
     }
 
+    public String getTenantIdFromToken(String authToken) {
+        return "";
+    }
 }
