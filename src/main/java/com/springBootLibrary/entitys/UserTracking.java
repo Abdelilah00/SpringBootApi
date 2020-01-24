@@ -6,13 +6,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
 import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @MappedSuperclass
-public abstract class UserTracking extends IdEntity implements Serializable {
+public abstract class UserTracking extends IdEntity {
     @CreationTimestamp
     private Date createdAt;
     @UpdateTimestamp

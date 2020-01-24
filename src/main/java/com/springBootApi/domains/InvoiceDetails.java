@@ -1,6 +1,6 @@
 package com.springBootApi.domains;
 
-import com.springBootLibrary.entitys.IdEntity;
+import com.springBootLibrary.entitys.UserTracking;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
-public class InvoiceDetails extends IdEntity {
+public class InvoiceDetails extends UserTracking {
     private static final long serialVersionUID = -19327445457556L;
 
     private String name;
