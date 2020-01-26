@@ -2,6 +2,8 @@ package com.springBootLibrary.services;
 
 import com.springBootLibrary.entitys.IdEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -12,7 +14,13 @@ import java.util.List;
 import java.util.Optional;
 public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudService<TEntity> {
     @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
     private IBaseJpaRepository<TEntity> repository;
+
+    public Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
     @Override
     public List<TEntity> findAll() {

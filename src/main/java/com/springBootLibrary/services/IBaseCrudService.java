@@ -29,7 +29,6 @@ public interface IBaseCrudService<TEntity> {
 
     TEntity getOne(Long aLong);
 
-
     TEntity save(TEntity entity);
 
     Optional<TEntity> findById(Long aLong);

@@ -2,6 +2,7 @@ package com.configuration.security.jwt;
 
 import com.configuration.Exception.CustomException;
 import com.configuration.security.UserDetailsServiceImpl;
+import com.configuration.security.repositorys.IUserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -34,6 +35,9 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsServiceImpl userDetails;
 
+    @Autowired
+    private IUserRepository userRepository;
+
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -43,6 +47,8 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
         claims.put("auth", userDetails.getAuthorities());
+        //claims.put("userId", userDetails.getUserId());
+        claims.put("userId", userRepository.findByUserName(userDetails.getUsername()).getId());
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -64,6 +70,10 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
+    public Long getUserId(String token) {
+        return (Long) Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("userId");
+    }
+
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -79,9 +89,5 @@ public class JwtTokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    public String getTenantIdFromToken(String authToken) {
-        return "";
     }
 }

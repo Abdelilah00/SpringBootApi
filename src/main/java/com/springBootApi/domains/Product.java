@@ -1,6 +1,6 @@
 package com.springBootApi.domains;
 
-import com.springBootLibrary.entitys.UserTracking;
+import com.springBootLibrary.entitys.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product extends UserTracking {
+public class Product extends BaseEntity {
     private static final long serialVersionUID = -193857221212507296L;
 
     private String name;
