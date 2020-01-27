@@ -11,8 +11,10 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudService<TEntity> {
+
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
+
 
     @Override
     public List<TEntity> findAll() {

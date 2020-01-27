@@ -2,8 +2,7 @@ package com.springBootLibrary.entitys;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.MappedSuperclass;
 import java.sql.Date;
@@ -11,7 +10,12 @@ import java.sql.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @MappedSuperclass
-public abstract class UserTracking extends IdEntity {
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
+public abstract class BaseEntity extends IdEntity {
+
+    private String tenantId;
+
     @CreationTimestamp
     private Date createdAt;
     @UpdateTimestamp
