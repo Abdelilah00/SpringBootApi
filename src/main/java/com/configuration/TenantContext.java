@@ -11,12 +11,10 @@ public class TenantContext {
     public static String getCurrentTenant() {
         return currentTenant.get();
     }
-
     public static void setCurrentTenant(String tenant) {
         logger.debug("Setting tenant to " + tenant);
         currentTenant.set(tenant);
     }
-
     public static void clear() {
         currentTenant.set(null);
     }

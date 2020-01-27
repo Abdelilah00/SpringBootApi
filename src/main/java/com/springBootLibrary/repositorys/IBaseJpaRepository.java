@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.io.Serializable;
 import java.util.List;
 public interface IBaseJpaRepository<TEntity extends IdEntity> extends JpaRepository<TEntity, Serializable> {
+
     @Override
     @Query("select e from #{#entityName} e where e.deletedAt is null")
     List<TEntity> findAll();
