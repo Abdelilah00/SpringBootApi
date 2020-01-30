@@ -2,9 +2,13 @@ package com.springBootLibrary.utilis;
 
 import com.springBootLibrary.entitys.IdEntity;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
 
@@ -17,25 +21,33 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
         this.dtoClass = dtoClass;
     }
 
-    protected List<TDto> convertToDtoList(List<TEntity> entityList) {
-        return entityList.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    @Async
+    protected CompletableFuture<List<TDto>> convertToDtoList(List<TEntity> entityList) throws ExecutionException, InterruptedException {
+        List<TDto> list = new ArrayList<>();
+        for (TEntity entity : entityList) {
+            TDto tDtoCompletableFuture = convertToDto(entity);
+            list.add(tDtoCompletableFuture);
+        }
+        return CompletableFuture.completedFuture(list);
     }
 
-    protected List<TEntity> convertToEntityList(List<TDto> dtoList) {
-        return dtoList.stream()
-                .map(this::convertToEntity)
-                .collect(Collectors.toList());
+    @Async
+    protected CompletableFuture<List<TEntity>> convertToEntityList(List<TDto> dtoList) throws ExecutionException, InterruptedException {
+        List<TEntity> list = new ArrayList<>();
+        for (TDto tDto : dtoList) {
+            TEntity tEntityCompletableFuture = convertToEntity(tDto);
+            list.add(tEntityCompletableFuture);
+        }
+        return CompletableFuture.completedFuture(list);
     }
 
-    protected TDto convertToDto(TEntity entity) {
-        //Assert.notNull(entity, "null Entity");
+    protected TDto convertToDto(TEntity entity) throws InterruptedException {
+        Assert.notNull(entity, "null Entity");
         return map(entity, dtoClass);
     }
 
     protected TEntity convertToEntity(TDto dto) {
-        //Assert.notNull(dto, "null dto");
+        Assert.notNull(dto, "null dto");
         return map(dto, entityClass);
     }
 }

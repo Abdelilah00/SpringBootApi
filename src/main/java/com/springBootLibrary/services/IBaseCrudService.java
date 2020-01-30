@@ -7,9 +7,10 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface IBaseCrudService<TEntity> {
-    List<TEntity> findAll();
+    CompletableFuture<List<TEntity>> findAll();
 
     List<TEntity> findAll(Sort sort);
 
@@ -27,9 +28,9 @@ public interface IBaseCrudService<TEntity> {
 
     void deleteAllInBatch();
 
-    TEntity getOne(Long aLong);
+    CompletableFuture<TEntity> getOne(Long aLong);
 
-    TEntity save(TEntity entity);
+    CompletableFuture<TEntity> save(TEntity entity);
 
     Optional<TEntity> findById(Long aLong);
 

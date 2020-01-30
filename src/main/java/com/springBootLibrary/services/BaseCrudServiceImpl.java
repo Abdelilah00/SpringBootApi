@@ -7,17 +7,21 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
 public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudService<TEntity> {
 
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
 
     @Override
-    public List<TEntity> findAll() {
-        return repository.findAll();
+    @Async
+    public CompletableFuture<List<TEntity>> findAll() {
+        return CompletableFuture.completedFuture(repository.findAll());
     }
 
     @Override
@@ -46,8 +50,9 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    public TEntity getOne(Long aLong) {
-        return repository.getOne(aLong);
+    @Async
+    public CompletableFuture<TEntity> getOne(Long aLong) {
+        return CompletableFuture.completedFuture(repository.getOne(aLong));
     }
 
     @Override
@@ -66,16 +71,18 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    public TEntity save(TEntity entity) {
-        return null;
+    @Async
+    public CompletableFuture<TEntity> save(TEntity entity) {
+        return CompletableFuture.completedFuture(repository.save(entity));
     }
 
     @Override
     public Optional<TEntity> findById(Long aLong) {
-        return Optional.empty();
+        return Optional.ofNullable(repository.getOne(aLong));
     }
 
     @Override
+    @Async
     public void deleteById(Long aLong) {
         repository.deleteById(aLong);
     }

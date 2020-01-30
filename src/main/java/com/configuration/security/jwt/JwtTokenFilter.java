@@ -1,7 +1,6 @@
 package com.configuration.security.jwt;
 
 import com.configuration.Exception.CustomException;
-import com.configuration.TenantContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,8 +27,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
 
-                String tenantId = jwtTokenProvider.getUserId(token).toString();
-                TenantContext.setCurrentTenant(tenantId);
+                /*String tenantId = jwtTokenProvider.getUserId(token).toString();
+                TenantContext.setCurrentTenant(tenantId);*/
             }
         } catch (CustomException ex) {
             //this is very important, since it guarantees the user is not authenticated at all
