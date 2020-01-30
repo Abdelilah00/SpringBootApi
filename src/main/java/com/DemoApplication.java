@@ -11,7 +11,6 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"com.springBootApi.repositorys", "com.configuration.security.repositorys"})
-
 @EnableAsync
 public class DemoApplication {
     public static void main(String[] args) {

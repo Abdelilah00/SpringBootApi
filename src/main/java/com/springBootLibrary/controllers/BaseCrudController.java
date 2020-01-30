@@ -34,9 +34,10 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
 
     @Async
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TDto getOne(@PathVariable(value = "id") long id) {
+    public CompletableFuture<TDto> getOne(@PathVariable(value = "id") long id) {
         var x = service.getOne(id);
-        return convertToDto(x);
+        var xx = convertToDto(x);
+        return CompletableFuture.completedFuture(xx);
     }
 
     @Async
@@ -52,7 +53,8 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     public CompletableFuture<TDto> update(@PathVariable(value = "id") long id, @RequestBody TDto dto) {
         var x = convertToEntity(dto);
         var xx = service.save(x);
-        return CompletableFuture.completedFuture(convertToDto(xx));
+        var xxx = convertToDto(xx);
+        return CompletableFuture.completedFuture(xxx);
     }
 
     @Async
