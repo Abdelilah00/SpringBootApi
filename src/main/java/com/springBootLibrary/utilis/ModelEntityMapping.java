@@ -41,12 +41,12 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
     }
 
     protected TDto convertToDto(TEntity entity) {
-        Assert.notNull(entity, "null Entity");
+        Assert.notNull(entity, "cannot map null Entity");
         return map(entity, dtoClass);
     }
 
     protected TEntity convertToEntity(TDto dto) {
-        Assert.notNull(dto, "null dto");
+        Assert.notNull(dto, "cannot map null dto");
         return map(dto, entityClass);
     }
 }

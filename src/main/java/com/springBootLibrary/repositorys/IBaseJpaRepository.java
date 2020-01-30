@@ -4,12 +4,10 @@ import com.springBootLibrary.entitys.IdEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.scheduling.annotation.Async;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Async
 public interface IBaseJpaRepository<TEntity extends IdEntity> extends JpaRepository<TEntity, Serializable> {
 
     @Override

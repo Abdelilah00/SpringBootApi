@@ -10,31 +10,38 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-@Async
 public interface IBaseCrudService<TEntity> {
+    @Async
     CompletableFuture<List<TEntity>> findAll();
 
-    List<TEntity> findAll(Sort sort);
+    @Async
+    CompletableFuture<List<TEntity>> findAll(Sort sort);
 
-    List<TEntity> findAll(Example<TEntity> example);
+    @Async
+    CompletableFuture<List<TEntity>> findAll(Example<TEntity> example);
 
-    List<TEntity> findAll(Example<TEntity> example, Sort sort);
+    @Async
+    CompletableFuture<List<TEntity>> findAll(Example<TEntity> example, Sort sort);
 
-    Page<TEntity> findAll(Pageable pageable);
+    @Async
+    CompletableFuture<Page<TEntity>> findAll(Pageable pageable);
 
-    List<TEntity> saveAll(Iterable<TEntity> entities);
+    @Async
+    CompletableFuture<List<TEntity>> saveAll(Iterable<TEntity> entities);
 
-    TEntity saveAndFlush(TEntity entity);
+    CompletableFuture<TEntity> saveAndFlush(TEntity entity);
 
     void deleteInBatch(Iterable<TEntity> entities);
 
     void deleteAllInBatch();
 
-    CompletableFuture<TEntity> getOne(Long aLong);
+    TEntity getOne(Long aLong);
 
+    @Async
     CompletableFuture<TEntity> save(TEntity entity);
 
-    Optional<TEntity> findById(Long aLong);
+    @Async
+    CompletableFuture<Optional<TEntity>> findById(Long aLong);
 
     void deleteById(Long aLong);
 
@@ -44,7 +51,9 @@ public interface IBaseCrudService<TEntity> {
 
     void deleteAll();
 
-    Optional<TEntity> findOne(Example<TEntity> example);
+    @Async
+    CompletableFuture<Optional<TEntity>> findOne(Example<TEntity> example);
 
-    Page<TEntity> findAll(Example<TEntity> example, Pageable pageable);
+    @Async
+    CompletableFuture<Page<TEntity>> findAll(Example<TEntity> example, Pageable pageable);
 }
