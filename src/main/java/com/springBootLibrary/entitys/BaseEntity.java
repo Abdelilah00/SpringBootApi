@@ -1,7 +1,8 @@
 package com.springBootLibrary.entitys;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,7 +10,8 @@ import javax.persistence.MappedSuperclass;
 import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @MappedSuperclass
 /*@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
 @Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")*/

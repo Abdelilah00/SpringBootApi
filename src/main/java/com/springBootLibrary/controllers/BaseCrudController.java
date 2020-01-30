@@ -5,12 +5,14 @@ import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.ModelEntityMapping;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEntityMapping<TEntity, TDto> {
@@ -29,10 +31,12 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
         return convertToDtoList(x).get();
     }
 
+    @Async
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TEntity getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
+    public CompletableFuture<TDto> getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
         var x = service.getOne(id).get();
-        return x;
+        Thread.sleep(4000);
+        return CompletableFuture.completedFuture(convertToDto(x));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,6 +48,9 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public TDto update(@PathVariable(value = "id") long id, @RequestBody TDto dto) throws ExecutionException, InterruptedException {
+/*
+        assert id == dto.getId():"Id Not Equals";
+*/
         var x = convertToEntity(dto);
         var xx = service.save(x).get();
         return convertToDto(xx);

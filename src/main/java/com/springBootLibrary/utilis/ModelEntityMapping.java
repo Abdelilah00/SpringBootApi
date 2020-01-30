@@ -8,7 +8,6 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMapper {
 
@@ -22,7 +21,7 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
     }
 
     @Async
-    protected CompletableFuture<List<TDto>> convertToDtoList(List<TEntity> entityList) throws ExecutionException, InterruptedException {
+    protected CompletableFuture<List<TDto>> convertToDtoList(List<TEntity> entityList) {
         List<TDto> list = new ArrayList<>();
         for (TEntity entity : entityList) {
             TDto tDtoCompletableFuture = convertToDto(entity);
@@ -32,7 +31,7 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
     }
 
     @Async
-    protected CompletableFuture<List<TEntity>> convertToEntityList(List<TDto> dtoList) throws ExecutionException, InterruptedException {
+    protected CompletableFuture<List<TEntity>> convertToEntityList(List<TDto> dtoList) {
         List<TEntity> list = new ArrayList<>();
         for (TDto tDto : dtoList) {
             TEntity tEntityCompletableFuture = convertToEntity(tDto);
@@ -41,7 +40,7 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
         return CompletableFuture.completedFuture(list);
     }
 
-    protected TDto convertToDto(TEntity entity) throws InterruptedException {
+    protected TDto convertToDto(TEntity entity) {
         Assert.notNull(entity, "null Entity");
         return map(entity, dtoClass);
     }

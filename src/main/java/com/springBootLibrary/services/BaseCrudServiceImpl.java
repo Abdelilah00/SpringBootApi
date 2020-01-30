@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+@Async
 public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudService<TEntity> {
 
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
 
     @Override
-    @Async
     public CompletableFuture<List<TEntity>> findAll() {
         return CompletableFuture.completedFuture(repository.findAll());
     }
@@ -50,7 +50,6 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    @Async
     public CompletableFuture<TEntity> getOne(Long aLong) {
         return CompletableFuture.completedFuture(repository.getOne(aLong));
     }
@@ -71,7 +70,6 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    @Async
     public CompletableFuture<TEntity> save(TEntity entity) {
         return CompletableFuture.completedFuture(repository.save(entity));
     }
@@ -82,7 +80,6 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    @Async
     public void deleteById(Long aLong) {
         repository.deleteById(aLong);
     }
