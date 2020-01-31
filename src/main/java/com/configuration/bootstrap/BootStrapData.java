@@ -30,6 +30,7 @@ public class BootStrapData implements CommandLineRunner {
 
         productRepository.save(new Product("Bimoo", new ArrayList<>()));
         productRepository.save(new Product("Picala", new ArrayList<>()));
+
         Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);
 

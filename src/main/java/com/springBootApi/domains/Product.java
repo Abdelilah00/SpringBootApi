@@ -1,10 +1,7 @@
 package com.springBootApi.domains;
 
 import com.springBootLibrary.entitys.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

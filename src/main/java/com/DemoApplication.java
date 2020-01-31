@@ -11,7 +11,6 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"com.springBootApi.repositorys", "com.configuration.security.repositorys"})
-
 @EnableAsync
 public class DemoApplication {
     public static void main(String[] args) {
@@ -21,8 +20,8 @@ public class DemoApplication {
     @Bean
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(2);
+        executor.setCorePoolSize(4);
+        executor.setMaxPoolSize(10);
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("AsyncMethodTest-");
         executor.initialize();

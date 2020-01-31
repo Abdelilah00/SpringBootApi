@@ -5,14 +5,13 @@ import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.ModelEntityMapping;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEntityMapping<TEntity, TDto> {
 
@@ -24,38 +23,35 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     }
 
 
-    @Async
     @RequestMapping(method = RequestMethod.GET)
-    public CompletableFuture<List<TDto>> getAll() {
-        var x = service.findAll();
-        var xx = convertToDtoList(x);
-        return CompletableFuture.completedFuture(xx);
+    public List<TDto> getAll() throws ExecutionException, InterruptedException {
+        var x = service.findAll().get();
+        return convertToDtoList(x).get();
     }
 
-    @Async
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TDto getOne(@PathVariable(value = "id") long id) {
+    public TDto getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
         var x = service.getOne(id);
         return convertToDto(x);
     }
 
-    @Async
     @RequestMapping(method = RequestMethod.POST)
-    public CompletableFuture<TDto> create(@RequestBody TDto dto) {
+    public TDto create(@RequestBody TDto dto) throws ExecutionException, InterruptedException {
         var x = convertToEntity(dto);
-        var xx = service.save(x);
-        return CompletableFuture.completedFuture(convertToDto(xx));
+        var xx = service.save(x).get();
+        return convertToDto(xx);
     }
 
-    @Async
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public CompletableFuture<TDto> update(@PathVariable(value = "id") long id, @RequestBody TDto dto) {
+    public TDto update(@PathVariable(value = "id") long id, @RequestBody TDto dto) throws ExecutionException, InterruptedException {
+/*
+        assert id == dto.getId():"Id Not Equals";
+*/
         var x = convertToEntity(dto);
-        var xx = service.save(x);
-        return CompletableFuture.completedFuture(convertToDto(xx));
+        var xx = service.save(x).get();
+        return convertToDto(xx);
     }
 
-    @Async
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") long id) {
         service.deleteById(id);
