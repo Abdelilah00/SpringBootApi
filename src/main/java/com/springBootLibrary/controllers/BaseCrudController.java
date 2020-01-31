@@ -32,7 +32,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public TDto getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
         var x = service.getOne(id);
-        return convertToDto(x);
+        return convertToDto(x.get());
     }
 
     @RequestMapping(method = RequestMethod.POST)

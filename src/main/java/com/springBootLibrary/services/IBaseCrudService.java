@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -35,7 +36,8 @@ public interface IBaseCrudService<TEntity> {
 
     void deleteAllInBatch();
 
-    TEntity getOne(Long aLong);
+    @Transactional
+    CompletableFuture<TEntity> getOne(Long aLong);
 
     @Async
     CompletableFuture<TEntity> save(TEntity entity);

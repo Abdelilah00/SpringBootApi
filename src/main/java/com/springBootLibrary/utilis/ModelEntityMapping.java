@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -40,6 +41,7 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
         return CompletableFuture.completedFuture(list);
     }
 
+    @Transactional
     protected TDto convertToDto(TEntity entity) {
         Assert.notNull(entity, "cannot map null Entity");
         return map(entity, dtoClass);

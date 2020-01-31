@@ -19,6 +19,7 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
 
     @Override
     public CompletableFuture<List<TEntity>> findAll() {
+
         return CompletableFuture.completedFuture(repository.findAll());
     }
 
@@ -48,8 +49,8 @@ public class BaseCrudServiceImpl<TEntity extends IdEntity> implements IBaseCrudS
     }
 
     @Override
-    public TEntity getOne(Long aLong) {
-        return repository.getOne(aLong);
+    public CompletableFuture<TEntity> getOne(Long aLong) {
+        return CompletableFuture.completedFuture(repository.getOne(aLong));
     }
 
     @Override
