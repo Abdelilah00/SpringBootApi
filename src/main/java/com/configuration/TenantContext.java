@@ -1,27 +1,26 @@
 package com.configuration;
 
-import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TenantContext {
 
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
-    private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
+    // TODO : ThreadLocal include
+    private static String currentTenant = "1";
 
     public static String getCurrentTenant() {
-        var tenantId = currentTenant.get();
-        logger.info("Getting tenant to => " + tenantId);
-        return tenantId;
+        logger.info("Getting tenant to => " + currentTenant);
+        return currentTenant;
     }
 
     public static void setCurrentTenant(String tenant) {
         logger.info("Setting tenant to =>" + tenant);
-        currentTenant.set(tenant);
+        currentTenant = tenant;
     }
 
     public static void clear() {
-        currentTenant.set(null);
+        currentTenant = null;
     }
 
 }
