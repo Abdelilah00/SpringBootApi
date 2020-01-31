@@ -3,8 +3,7 @@ package com.springBootLibrary.entitys;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.MappedSuperclass;
 import java.sql.Date;
@@ -13,8 +12,8 @@ import java.sql.Date;
 @Getter
 @Setter
 @MappedSuperclass
-/*@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")*/
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 public abstract class BaseEntity extends IdEntity {
 
     private String tenantId;
@@ -25,8 +24,8 @@ public abstract class BaseEntity extends IdEntity {
     private Date updatedAt;
     private Date deletedAt = null;
 
-    private long createdBy;
-    private long updatedBy;
-    private long deletedBy;
+    private String createdBy;
+    private String updatedBy;
+    private String deletedBy;
 }
 

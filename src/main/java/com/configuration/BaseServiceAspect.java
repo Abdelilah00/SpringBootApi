@@ -1,15 +1,40 @@
 package com.configuration;
 
-/*@Aspect
+import com.springBootLibrary.services.IBaseCrudService;
+import lombok.var;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.EntityManagerFactory;
+
+@Aspect
 @Component
 public class BaseServiceAspect {
-    @Autowired
-    private Session session;
+    private SessionFactory sessionFactory;
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    @Before("execution(* com.springBootApi(..)) && target(service) ")
-    public void aroundExecution(JoinPoint pjp, IBaseCrudService service) throws Throwable {
-        org.hibernate.Filter filter = session.enableFilter("tenantFilter");
-        filter.setParameter("tenantId", TenantContext.getCurrentTenant());
+    @Autowired
+    public BaseServiceAspect(EntityManagerFactory factory) {
+        if (factory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        this.sessionFactory = factory.unwrap(SessionFactory.class);
+    }
+
+    @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
+    public void aroundExecution(IBaseCrudService service) throws Throwable {
+        logger.info("Advice for Class => " + service.getClass().getName());
+
+        var trans = sessionFactory.getCurrentSession().beginTransaction();
+        org.hibernate.Filter filter = sessionFactory.getCurrentSession().enableFilter("tenantFilter");
+        var x = TenantContext.getCurrentTenant();
+
+        filter.setParameter("tenantId", "1");
         filter.validate();
     }
-}*/
+}

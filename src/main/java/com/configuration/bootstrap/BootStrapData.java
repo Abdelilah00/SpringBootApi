@@ -6,6 +6,7 @@ import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Product;
 import com.springBootApi.repositorys.IProductRepository;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,9 +28,13 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());
+        prod1.setTenantId("1");
+        productRepository.save(prod1);
 
-        productRepository.save(new Product("Bimoo", new ArrayList<>()));
-        productRepository.save(new Product("Picala", new ArrayList<>()));
+        var prod2 = new Product("Picala from tenant 2", new ArrayList<>());
+        prod2.setTenantId("2");
+        productRepository.save(prod2);
 
         Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);

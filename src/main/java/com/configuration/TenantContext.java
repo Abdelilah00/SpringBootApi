@@ -1,5 +1,6 @@
 package com.configuration;
 
+import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,12 +10,16 @@ public class TenantContext {
     private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
 
     public static String getCurrentTenant() {
-        return currentTenant.get();
+        var tenantId = currentTenant.get();
+        logger.info("Getting tenant to => " + tenantId);
+        return tenantId;
     }
+
     public static void setCurrentTenant(String tenant) {
-        logger.debug("Setting tenant to " + tenant);
+        logger.info("Setting tenant to =>" + tenant);
         currentTenant.set(tenant);
     }
+
     public static void clear() {
         currentTenant.set(null);
     }
