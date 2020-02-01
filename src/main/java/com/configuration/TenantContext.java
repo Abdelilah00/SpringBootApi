@@ -10,12 +10,10 @@ public class TenantContext {
     private static String currentTenant = "1";
 
     public static String getCurrentTenant() {
-        logger.info("Getting tenant to => " + currentTenant);
         return currentTenant;
     }
 
     public static void setCurrentTenant(String tenant) {
-        logger.info("Setting tenant to =>" + tenant);
         currentTenant = tenant;
     }
 

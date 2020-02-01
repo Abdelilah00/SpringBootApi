@@ -22,7 +22,6 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
         super(tEntityClass, tDtoClass);
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<TDto> getAll() throws ExecutionException, InterruptedException {
         var x = service.findAll().get();
