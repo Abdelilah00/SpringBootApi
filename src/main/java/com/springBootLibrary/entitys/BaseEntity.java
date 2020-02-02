@@ -4,7 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.MappedSuperclass;
 import java.sql.Date;
@@ -14,8 +17,7 @@ import java.sql.Date;
 @Setter
 @ToString
 @MappedSuperclass
-@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "tenantId = :tenantId")
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")}, defaultCondition = "tenantId = :tenantId")
 public abstract class BaseEntity extends IdEntity {
 
     private String tenantId;

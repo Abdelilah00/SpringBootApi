@@ -15,8 +15,8 @@ import javax.persistence.EntityManagerFactory;
 @Aspect
 @Component
 public class BaseServiceAspect {
-    private SessionFactory sessionFactory;
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private SessionFactory sessionFactory;
 
     @Autowired
     public BaseServiceAspect(EntityManagerFactory factory) {
@@ -25,14 +25,11 @@ public class BaseServiceAspect {
         }
         this.sessionFactory = factory.unwrap(SessionFactory.class);
     }
-
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
         logger.info("Advice for Class => " + service.getClass().getName() + "for Tenant Id => " + TenantContext.getCurrentTenant());
         var currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
-        var filter = currentSession.enableFilter("tenantFilter");
-        filter.setParameter("tenantId", TenantContext.getCurrentTenant());
-        filter.validate();
+        currentSession.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant());
     }
 }
