@@ -24,20 +24,20 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
 
     @RequestMapping(method = RequestMethod.GET)
     public List<TDto> getAll() throws ExecutionException, InterruptedException {
-        var x = service.findAll().get();
+        var x = service.findAll();
         return convertToDtoList(x).get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public TDto getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
         var x = service.getOne(id);
-        return convertToDto(x.get());
+        return convertToDto(x);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public TDto create(@RequestBody TDto dto) throws ExecutionException, InterruptedException {
         var x = convertToEntity(dto);
-        var xx = service.save(x).get();
+        var xx = service.save(x);
         return convertToDto(xx);
     }
 
@@ -47,7 +47,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
         assert id == dto.getId():"Id Not Equals";
 */
         var x = convertToEntity(dto);
-        var xx = service.save(x).get();
+        var xx = service.save(x);
         return convertToDto(xx);
     }
 

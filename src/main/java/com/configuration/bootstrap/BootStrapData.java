@@ -1,22 +1,30 @@
 package com.configuration.bootstrap;
 
-import com.configuration.security.domains.Role;
-import com.configuration.security.domains.RoleName;
-import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Product;
 import com.springBootApi.repositorys.IProductRepository;
 import lombok.var;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
-import java.util.Collections;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public BootStrapData(EntityManagerFactory factory) {
+        if (factory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        this.sessionFactory = factory.unwrap(SessionFactory.class);
+    }
+
     @Autowired
     private IUserRepository userRepository;
 
@@ -36,7 +44,8 @@ public class BootStrapData implements CommandLineRunner {
         prod2.setTenantId("2");
         productRepository.save(prod2);
 
-        Role userRole = new Role();
+
+        /*Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);
 
         Role adminRole = new Role();
@@ -44,6 +53,6 @@ public class BootStrapData implements CommandLineRunner {
 
         userRepository.save(new User(0, "admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole)));
         userRepository.save(new User(0, "user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole)));
-
+*/
     }
 }

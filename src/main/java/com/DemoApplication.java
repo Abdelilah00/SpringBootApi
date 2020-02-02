@@ -5,14 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"com.springBootApi.repositorys", "com.configuration.security.repositorys"})
-@EnableAsync
+//@EnableAsync
 @EnableAspectJAutoProxy
 public class DemoApplication {
     public static void main(String[] args) {
@@ -29,5 +28,4 @@ public class DemoApplication {
         executor.initialize();
         return executor;
     }
-
 }

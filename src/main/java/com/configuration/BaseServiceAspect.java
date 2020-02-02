@@ -1,6 +1,7 @@
 package com.configuration;
 
 import com.springBootLibrary.services.IBaseCrudService;
+import lombok.var;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.hibernate.SessionFactory;
@@ -27,11 +28,10 @@ public class BaseServiceAspect {
 
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
-        logger.info("Advice for Class => " + service.getClass().getName());
-
-        sessionFactory.getCurrentSession().beginTransaction();
-        org.hibernate.Filter filter = sessionFactory.getCurrentSession().enableFilter("tenantFilter");
-
+        logger.info("Advice for Class => " + service.getClass().getName() + "for Tenant Id => " + TenantContext.getCurrentTenant());
+        var currentSession = sessionFactory.getCurrentSession();
+        currentSession.beginTransaction();
+        var filter = currentSession.enableFilter("tenantFilter");
         filter.setParameter("tenantId", TenantContext.getCurrentTenant());
         filter.validate();
     }
