@@ -6,15 +6,14 @@ import org.slf4j.LoggerFactory;
 public class TenantContext {
 
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
-    // TODO : ThreadLocal include
-    private static String currentTenant = "1";
+    private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
 
     public static String getCurrentTenant() {
-        return currentTenant;
+        return currentTenant.get();
     }
 
     public static void setCurrentTenant(String tenant) {
-        currentTenant = tenant;
+        currentTenant.set(tenant);
     }
 
     public static void clear() {

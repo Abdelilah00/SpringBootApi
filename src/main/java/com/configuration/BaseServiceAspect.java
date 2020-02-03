@@ -1,18 +1,6 @@
 package com.configuration;
 
-import com.springBootLibrary.services.IBaseCrudService;
-import lombok.var;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.EntityManagerFactory;
-
-@Aspect
+/*@Aspect
 @Component
 public class BaseServiceAspect {
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -27,9 +15,10 @@ public class BaseServiceAspect {
     }
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
-        logger.info("Advice for Class => " + service.getClass().getName() + "for Tenant Id => " + TenantContext.getCurrentTenant());
+        logger.info("Advice for Class => " + service.getClass().getName() + "for TenantId => " + TenantContext.getCurrentTenant());
         var currentSession = sessionFactory.getCurrentSession();
-        currentSession.beginTransaction();
-        currentSession.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant());
+        if (!currentSession.getTransaction().isActive())
+            currentSession.beginTransaction();
+        currentSession.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant()).validate();
     }
-}
+}*/

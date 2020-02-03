@@ -4,19 +4,11 @@ import com.springBootLibrary.entitys.BaseEntity;
 import org.hibernate.EmptyInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import javax.sql.DataSource;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
-@Configuration
+/*@Configuration
 public class MyInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -79,7 +71,7 @@ public class MyInterceptor {
     }
 
 
-    @Bean
+   /@Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder factory,
                                                                        DataSource dataSource, Environment env,
                                                                        JpaProperties jpaProperties) {
@@ -89,42 +81,68 @@ public class MyInterceptor {
         jpaPropertiesMap.put("hibernate.naming.physical-strategy", env.getProperty("spring.jpa.hibernate.naming.physical-strategy"));
         return factory.dataSource(dataSource).packages("com").properties(jpaPropertiesMap).build();
     }
-}
-/*
+}*/
 @Configuration
 public class MyInterceptor extends EmptyInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-
     @Override
     public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onDelete ########## => " + TenantContext.getCurrentTenant());
-        if (entity instanceof BaseEntity) {
-            ((BaseEntity) entity).setDeletedBy(TenantContext.getCurrentTenant());
-            logger.info("My Entity ############# => " + entity.toString());
-        }
-        super.onDelete(entity, id, state, propertyNames, types);
+        logger.info("onDelete ### => " + TenantContext.getCurrentTenant());
+        audit(entity, state, propertyNames);
     }
 
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onFlushDirty ########## => " + TenantContext.getCurrentTenant());
-        if (entity instanceof BaseEntity) {
-            ((BaseEntity) entity).setTenantId(TenantContext.getCurrentTenant());
-            logger.info("My Entity ############# => " + entity.toString());
-        }
-        return super.onFlushDirty(entity, id, currentState, previousState, propertyNames, types);
+        logger.info("onFlushDirty ### => " + TenantContext.getCurrentTenant());
+        return audit(entity, currentState, propertyNames);
     }
 
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onSave ########## => " + TenantContext.getCurrentTenant());
+        logger.info("onSave ### => " + TenantContext.getCurrentTenant());
+        return audit(entity, state, propertyNames);
+    }
+
+    //TODO : Add Audit for each action
+    private boolean audit(Object entity, Object[] currentState, String[] propertyNames) {
+        boolean changed = false;
         if (entity instanceof BaseEntity) {
-            ((BaseEntity) entity).setCreatedBy(TenantContext.getCurrentTenant());
-            logger.info("My Entity ############# => " + entity.toString());
+            for (int i = 0; i < propertyNames.length; i++) {
+
+                if ("tenantId".equals(propertyNames[i])) {
+                    Object currentDate = currentState[i];
+                    if (currentDate == null) {
+                        currentState[i] = TenantContext.getCurrentTenant();
+                        changed = true;
+                    }
+                }
+                if ("createdBy".equals(propertyNames[i])) {
+                    Object currentDate = currentState[i];
+                    if (currentDate == null) {
+                        currentState[i] = TenantContext.getCurrentTenant();
+                        changed = true;
+                    }
+                }
+
+                if ("deletedBy".equals(propertyNames[i])) {
+                    Object currentDate = currentState[i];
+                    if (currentDate == null) {
+                        currentState[i] = TenantContext.getCurrentTenant();
+                        changed = true;
+                    }
+                }
+
+                if ("updatedBy".equals(propertyNames[i])) {
+                    Object currentDate = currentState[i];
+                    if (currentDate == null) {
+                        currentState[i] = TenantContext.getCurrentTenant();
+                        changed = true;
+                    }
+                }
+            }
         }
-        return super.onSave(entity, id, state, propertyNames, types);
+        return changed;
     }
 }
-*/
