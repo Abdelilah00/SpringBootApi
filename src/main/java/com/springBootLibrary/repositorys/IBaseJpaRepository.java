@@ -1,6 +1,6 @@
 package com.springBootLibrary.repositorys;
 
-import com.springBootLibrary.entitys.IdEntity;
+import com.springBootLibrary.entitys.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IBaseJpaRepository<TEntity extends IdEntity> extends JpaRepository<TEntity, Serializable> {
+public interface IBaseJpaRepository<TEntity extends BaseEntity> extends JpaRepository<TEntity, Serializable> {
 
-    /*@Override
+    @Override
     @Query("select e from #{#entityName} e where e.deletedAt is null")
-    List<TEntity> findAll();*/
+    List<TEntity> findAll();
 
     //Look up deleted entities
     @Query("select e from #{#entityName} e where e.deletedAt is not null")
@@ -23,6 +23,7 @@ public interface IBaseJpaRepository<TEntity extends IdEntity> extends JpaReposit
     @Query("update #{#entityName} e set e.deletedAt=current_date where e.id=?1")
     @Modifying
     void deleteById(Serializable serializable);
+
 
    /* //Soft delete.
     @Modifying

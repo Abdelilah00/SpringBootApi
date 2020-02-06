@@ -3,7 +3,6 @@ package com.springBootLibrary.controllers;
 import com.springBootLibrary.entitys.IdEntity;
 import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.ModelEntityMapping;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,20 +23,20 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
 
     @RequestMapping(method = RequestMethod.GET)
     public List<TDto> getAll() throws ExecutionException, InterruptedException {
-        var x = service.findAll();
+        var x = service.findAll().get();
         return convertToDtoList(x).get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public TDto getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
-        var x = service.getOne(id);
+        var x = service.getOne(id).get();
         return convertToDto(x);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public TDto create(@RequestBody TDto dto) throws ExecutionException, InterruptedException {
         var x = convertToEntity(dto);
-        var xx = service.save(x);
+        var xx = service.save(x).get();
         return convertToDto(xx);
     }
 
@@ -47,7 +46,7 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
         assert id == dto.getId():"Id Not Equals";
 */
         var x = convertToEntity(dto);
-        var xx = service.save(x);
+        var xx = service.save(x).get();
         return convertToDto(xx);
     }
 

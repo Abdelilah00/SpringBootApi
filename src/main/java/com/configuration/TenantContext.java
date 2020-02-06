@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 public class TenantContext {
 
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
+    //TODO :  LinkedBlockingQueue ??
     private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
 
     public static String getCurrentTenant() {
