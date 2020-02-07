@@ -42,23 +42,6 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         TenantContext.setCurrentTenant("1");
 
-        var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());
-        prod1.setTenantId("1");
-        productService.save(prod1);
-
-        var prod2 = new Product("Picala from tenant 2", new ArrayList<>());
-        prod2.setTenantId("2");
-        productService.save(prod2);
-
-     /* var currentSession= sessionFactory.getCurrentSession();
-        currentSession.beginTransaction();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-        currentSession.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant()).validate();
-        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
-        criteria.from(Product.class);
-        logger.info("####################### Result => "+currentSession.createQuery(criteria).getResultList());*/
-
-
         /*Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);
         User userUser =new User(0, "user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole));
@@ -77,5 +60,14 @@ public class BootStrapData implements CommandLineRunner {
         customerService.save(new Customer("marouan", "majdoubi"));
         customerService.save(new Customer("ikrame", "louni"));
         customerService.save(new Customer("wafae", "tal7awi"));
+
+
+        var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());
+        prod1.setTenantId("1");
+        productService.save(prod1);
+
+        var prod2 = new Product("Picala from tenant 2", new ArrayList<>());
+        prod2.setTenantId("2");
+        productService.save(prod2);
     }
 }

@@ -10,7 +10,7 @@ public class TenantContext {
     private static ThreadLocal<String> currentTenant = new ThreadLocal<>();
 
     public static String getCurrentTenant() {
-        return currentTenant.get();
+        return currentTenant.get() == null ? "2" : currentTenant.get();
     }
 
     public static void setCurrentTenant(String tenant) {
