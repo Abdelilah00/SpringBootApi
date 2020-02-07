@@ -1,6 +1,9 @@
 package com.configuration.bootstrap;
 
 import com.configuration.TenantContext;
+import com.configuration.security.domains.Role;
+import com.configuration.security.domains.RoleName;
+import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Customer;
 import com.springBootApi.domains.Product;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -40,9 +44,8 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        TenantContext.setCurrentTenant("1");
 
-        /*Role userRole = new Role();
+        Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);
         User userUser =new User(0, "user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole));
         userRepository.save(userUser);
@@ -50,24 +53,25 @@ public class BootStrapData implements CommandLineRunner {
         Role adminRole = new Role();
         adminRole.setName(RoleName.ROLE_ADMIN);
         User userAdmin =new User(0, "admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole));
-        userRepository.save(userAdmin);*/
+        userRepository.save(userAdmin);
+
 
         customerService.save(new Customer("Abdelilah", "Dehaoui"));
         customerService.save(new Customer("Jamal", "Elghafouli"));
-        customerService.save(new Customer("Dalila", "makhloufi"));
+   /*     customerService.save(new Customer("Dalila", "makhloufi"));
         customerService.save(new Customer("mourad", "jou3"));
         customerService.save(new Customer("imane", "lehbetri"));
         customerService.save(new Customer("marouan", "majdoubi"));
         customerService.save(new Customer("ikrame", "louni"));
-        customerService.save(new Customer("wafae", "tal7awi"));
+        customerService.save(new Customer("wafae", "tal7awi"));*/
 
 
         var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());
-        prod1.setTenantId("1");
+        prod1.setTenantId(1L);
         productService.save(prod1);
 
         var prod2 = new Product("Picala from tenant 2", new ArrayList<>());
-        prod2.setTenantId("2");
+        prod2.setTenantId(2L);
         productService.save(prod2);
     }
 }

@@ -16,13 +16,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private IUserRepository userRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         final User user = userRepository.findByUserName(userName);
-
         if (user == null) {
             throw new UsernameNotFoundException("User '" + userName + "' not found");
         }
+/*
         return org.springframework.security.core.userdetails.User//
                 .withUsername(userName)//
                 .password(user.getPassword())//
@@ -31,7 +32,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .accountLocked(false)//
                 .credentialsExpired(false)//
                 .disabled(false)//
-                .build();
+                .build();*/
+
+        var userAuth = new UserAuth(
+                user.getUserName(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList())
+                , user.getId());
+        return userAuth;
     }
 
 }

@@ -16,27 +16,25 @@ public class MyInterceptor extends EmptyInterceptor {
     @Override
     public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
         logger.info("onDelete ### => " + TenantContext.getCurrentTenant());
-        audit(entity, state, propertyNames);
+        auditDelete(entity, state, propertyNames);
     }
 
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, org.hibernate.type.Type[] types) {
         logger.info("onFlushDirty ### => " + TenantContext.getCurrentTenant());
-        return audit(entity, currentState, propertyNames);
+        return auditFlushDirty(entity, currentState, propertyNames);
     }
 
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
         logger.info("onSave ### => " + TenantContext.getCurrentTenant());
-        return audit(entity, state, propertyNames);
+        return auditSave(entity, state, propertyNames);
     }
 
-    //TODO : Add Audit for each action
-    private boolean audit(Object entity, Object[] currentState, String[] propertyNames) {
+    private boolean auditSave(Object entity, Object[] currentState, String[] propertyNames) {
         boolean changed = false;
         if (entity instanceof BaseEntity) {
             for (int i = 0; i < propertyNames.length; i++) {
-
                 if ("createdBy".equals(propertyNames[i])) {
                     Object currentDate = currentState[i];
                     if (currentDate == null) {
@@ -44,15 +42,15 @@ public class MyInterceptor extends EmptyInterceptor {
                         changed = true;
                     }
                 }
+            }
+        }
+        return changed;
+    }
 
-                if ("deletedBy".equals(propertyNames[i])) {
-                    Object currentDate = currentState[i];
-                    if (currentDate == null) {
-                        currentState[i] = TenantContext.getCurrentTenant();
-                        changed = true;
-                    }
-                }
-
+    private boolean auditFlushDirty(Object entity, Object[] currentState, String[] propertyNames) {
+        boolean changed = false;
+        if (entity instanceof BaseEntity) {
+            for (int i = 0; i < propertyNames.length; i++) {
                 if ("updatedBy".equals(propertyNames[i])) {
                     Object currentDate = currentState[i];
                     if (currentDate == null) {
@@ -63,5 +61,20 @@ public class MyInterceptor extends EmptyInterceptor {
             }
         }
         return changed;
+    }
+
+    private void auditDelete(Object entity, Object[] currentState, String[] propertyNames) {
+        boolean changed = false;
+        if (entity instanceof BaseEntity) {
+            for (int i = 0; i < propertyNames.length; i++) {
+                if ("deletedBy".equals(propertyNames[i])) {
+                    Object currentDate = currentState[i];
+                    if (currentDate == null) {
+                        currentState[i] = TenantContext.getCurrentTenant();
+                        changed = true;
+                    }
+                }
+            }
+        }
     }
 }
