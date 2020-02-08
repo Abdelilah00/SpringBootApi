@@ -49,7 +49,7 @@ public class JwtTokenProvider {
         claims.put("auth", userDetails.getAuthorities());
         //TODO : Implement getUserId in UserDetails interface
         //claims.put("userId", userDetails.getUserId());
-        claims.put("userId", userRepository.findByUserName(userDetails.getUsername()).getId());
+        //claims.put("userId", userRepository.findByUserName(userDetails.getUsername()).getId());
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -63,6 +63,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
+        //TODO: Simplify get auth from token
         UserDetails userDetails1 = userDetails.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails1, "", userDetails1.getAuthorities());
     }
@@ -71,9 +72,9 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String getUserId(String token) {
+   /* public String getUserId(String token) {
         return String.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("userId"));
-    }
+    }*/
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");

@@ -19,7 +19,9 @@ public class BaseServiceAspect {
 
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
-        Session session = entityManager.unwrap(Session.class);
-        session.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant());
+        if (TenantContext.getCurrentTenant() != 0L) {
+            Session session = entityManager.unwrap(Session.class);
+            session.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant());
+        }
     }
 }

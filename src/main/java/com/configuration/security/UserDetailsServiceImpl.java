@@ -23,8 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User '" + userName + "' not found");
         }
-/*
-        return org.springframework.security.core.userdetails.User//
+
+        /*return org.springframework.security.core.userdetails.User//
                 .withUsername(userName)//
                 .password(user.getPassword())//
                 .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList()))//
@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .disabled(false)//
                 .build();*/
 
-        var userAuth = new UserAuth(
+        return new MyUserAuth(
                 user.getUserName(),
                 user.getPassword(),
                 true,
@@ -43,7 +43,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 true,
                 user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList())
                 , user.getId());
-        return userAuth;
     }
 
 }

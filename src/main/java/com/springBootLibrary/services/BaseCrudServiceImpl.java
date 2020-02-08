@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @Transactional
 public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCrudService<TEntity> {
@@ -25,23 +24,23 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     private IBaseJpaRepository<TEntity> repository;
 
     @Override
-    public CompletableFuture<List<TEntity>> findAll() {
-        return CompletableFuture.completedFuture(repository.findAll());
+    public List<TEntity> findAll() {
+        return (repository.findAll());
     }
 
     @Override
-    public CompletableFuture<List<TEntity>> findAll(Sort sort) {
-        return CompletableFuture.completedFuture(null);
+    public List<TEntity> findAll(Sort sort) {
+        return (null);
     }
 
     @Override
-    public CompletableFuture<List<TEntity>> saveAll(Iterable<TEntity> entities) {
-        return CompletableFuture.completedFuture(null);
+    public List<TEntity> saveAll(Iterable<TEntity> entities) {
+        return (null);
     }
 
     @Override
-    public CompletableFuture<TEntity> saveAndFlush(TEntity entity) {
-        return CompletableFuture.completedFuture(null);
+    public TEntity saveAndFlush(TEntity entity) {
+        return (null);
     }
 
     @Override
@@ -55,33 +54,33 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     }
 
     @Override
-    public CompletableFuture<TEntity> getOne(Long aLong) {
-        return CompletableFuture.completedFuture(repository.getOne(aLong));
+    public TEntity getOne(Long aLong) {
+        return (repository.getOne(aLong));
     }
 
     @Override
-    public CompletableFuture<List<TEntity>> findAll(Example<TEntity> example) {
-        return CompletableFuture.completedFuture(null);
+    public List<TEntity> findAll(Example<TEntity> example) {
+        return (null);
     }
 
     @Override
-    public CompletableFuture<List<TEntity>> findAll(Example<TEntity> example, Sort sort) {
-        return CompletableFuture.completedFuture(null);
+    public List<TEntity> findAll(Example<TEntity> example, Sort sort) {
+        return (null);
     }
 
     @Override
-    public CompletableFuture<Page<TEntity>> findAll(Pageable pageable) {
-        return CompletableFuture.completedFuture(null);
+    public Page<TEntity> findAll(Pageable pageable) {
+        return (null);
     }
 
     @Override
-    public CompletableFuture<TEntity> save(TEntity entity) {
-        return CompletableFuture.completedFuture(repository.save(entity));
+    public TEntity save(TEntity entity) {
+        return (repository.save(entity));
     }
 
     @Override
-    public CompletableFuture<Optional<TEntity>> findById(Long aLong) {
-        return CompletableFuture.completedFuture(Optional.ofNullable(repository.getOne(aLong)));
+    public Optional<TEntity> findById(Long aLong) {
+        return (Optional.ofNullable(repository.getOne(aLong)));
     }
 
     @Override
@@ -105,12 +104,12 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     }
 
     @Override
-    public CompletableFuture<Optional<TEntity>> findOne(Example<TEntity> example) {
-        return CompletableFuture.completedFuture(Optional.empty());
+    public Optional<TEntity> findOne(Example<TEntity> example) {
+        return (Optional.empty());
     }
 
     @Override
-    public CompletableFuture<Page<TEntity>> findAll(Example<TEntity> example, Pageable pageable) {
-        return CompletableFuture.completedFuture(null);
+    public Page<TEntity> findAll(Example<TEntity> example, Pageable pageable) {
+        return (null);
     }
 }
