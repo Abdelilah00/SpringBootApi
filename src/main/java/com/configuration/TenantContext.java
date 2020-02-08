@@ -8,20 +8,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class TenantContext {
 
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
-    //TODO :  LinkedBlockingQueue ??
+    //TODO :  include Safe thread ??
 
     public static long getCurrentTenant() {
-        try {
-
-            var auth = SecurityContextHolder.getContext().getAuthentication();
-            var userId = ((UserAuth) auth.getPrincipal()).getUserId();
+        if (SecurityContextHolder.getContext() != null) {
+            var userId = ((UserAuth) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
             logger.info("UserId ############### =>" + userId);
             return userId;
-        } catch (Exception ex) {
-            logger.info("UserId ############### => Catch");
-            return 1L;
         }
+        logger.info("#################### Catch ####################");
+        return 1L;
     }
-
 }
 

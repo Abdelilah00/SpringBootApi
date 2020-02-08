@@ -37,23 +37,29 @@ public class BootStrapData implements CommandLineRunner {
 
         Role userRole = new Role();
         userRole.setName(RoleName.ROLE_USER);
-        User userUser =new User(0, "user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole));
+        User userUser = new User("user", passwordEncoder.encode("user"), "user@x.com", true, Collections.singletonList(userRole));
         userRepository.save(userUser);
 
         Role adminRole = new Role();
         adminRole.setName(RoleName.ROLE_ADMIN);
-        User userAdmin =new User(0, "admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole));
+        User userAdmin = new User("admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole));
         userRepository.save(userAdmin);
 
 
-        customerService.save(new Customer("Abdelilah", "Dehaoui"));
-        customerService.save(new Customer("Jamal", "Elghafouli"));
-   /*     customerService.save(new Customer("Dalila", "makhloufi"));
+        Customer customer = new Customer("Abdelilah 1", "Dehaoui");
+        customer.setTenantId(1L);
+        customerService.save(customer);
+
+        Customer customer1 = new Customer("Jamal 2", "Elghafouli");
+        customer.setTenantId(2L);
+        customerService.save(customer1);
+
+        /*customerService.save(new Customer("Dalila", "makhloufi"));
         customerService.save(new Customer("mourad", "jou3"));
         customerService.save(new Customer("imane", "lehbetri"));
         customerService.save(new Customer("marouan", "majdoubi"));
         customerService.save(new Customer("ikrame", "louni"));
-        customerService.save(new Customer("wafae", "tal7awi"));*/
+        customerService.save(new Customer("lamyae", "tal7awi"));*/
 
 
         var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());

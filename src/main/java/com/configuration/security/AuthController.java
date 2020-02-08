@@ -59,7 +59,7 @@ public class AuthController {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
         }
 
-        User result = userRepository.save(new User(0, signUpRequest.getUserName(), passwordEncoder.encode(signUpRequest.getPassword()), "y@y.com", true, Collections.singletonList(new Role(0, RoleName.ROLE_USER, null))));
+        User result = userRepository.save(new User(signUpRequest.getUserName(), passwordEncoder.encode(signUpRequest.getPassword()), "y@y.com", true, Collections.singletonList(new Role(RoleName.ROLE_USER, null))));
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/auth/signIn/{userName}").buildAndExpand(result.getUserName()).toUri();
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }

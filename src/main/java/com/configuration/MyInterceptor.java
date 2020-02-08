@@ -15,64 +15,66 @@ public class MyInterceptor extends EmptyInterceptor {
 
     @Override
     public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onDelete ### => " + TenantContext.getCurrentTenant());
-        auditDelete(entity, state, propertyNames);
+        if (entity instanceof BaseEntity) {
+            logger.info("onDelete ### => " + TenantContext.getCurrentTenant());
+            auditDelete(state, propertyNames);
+        }
     }
 
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onFlushDirty ### => " + TenantContext.getCurrentTenant());
-        return auditFlushDirty(entity, currentState, propertyNames);
+        if (entity instanceof BaseEntity) {
+            logger.info("onFlushDirty ### => " + TenantContext.getCurrentTenant());
+            return auditFlushDirty(currentState, propertyNames);
+        }
+        return false;
     }
 
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, org.hibernate.type.Type[] types) {
-        logger.info("onSave ### => " + TenantContext.getCurrentTenant());
-        return auditSave(entity, state, propertyNames);
+        if (entity instanceof BaseEntity) {
+            logger.info("onSave ### => " + TenantContext.getCurrentTenant());
+            return auditSave(state, propertyNames);
+        }
+        return false;
     }
 
-    private boolean auditSave(Object entity, Object[] currentState, String[] propertyNames) {
+    private boolean auditSave(Object[] currentState, String[] propertyNames) {
         boolean changed = false;
-        if (entity instanceof BaseEntity) {
-            for (int i = 0; i < propertyNames.length; i++) {
-                if ("createdBy".equals(propertyNames[i])) {
-                    Object currentDate = currentState[i];
-                    if (currentDate == null) {
-                        currentState[i] = TenantContext.getCurrentTenant();
-                        changed = true;
-                    }
+        for (int i = 0; i < propertyNames.length; i++) {
+            if ("createdBy".equals(propertyNames[i])) {
+                Object currentDate = currentState[i];
+                if (currentDate == null) {
+                    currentState[i] = TenantContext.getCurrentTenant();
+                    changed = true;
                 }
             }
         }
         return changed;
     }
 
-    private boolean auditFlushDirty(Object entity, Object[] currentState, String[] propertyNames) {
+    private boolean auditFlushDirty(Object[] currentState, String[] propertyNames) {
         boolean changed = false;
-        if (entity instanceof BaseEntity) {
-            for (int i = 0; i < propertyNames.length; i++) {
-                if ("updatedBy".equals(propertyNames[i])) {
-                    Object currentDate = currentState[i];
-                    if (currentDate == null) {
-                        currentState[i] = TenantContext.getCurrentTenant();
-                        changed = true;
-                    }
+        for (int i = 0; i < propertyNames.length; i++) {
+            if ("updatedBy".equals(propertyNames[i])) {
+                Object currentDate = currentState[i];
+                if (currentDate == null) {
+                    currentState[i] = TenantContext.getCurrentTenant();
+                    changed = true;
                 }
             }
         }
         return changed;
     }
 
-    private void auditDelete(Object entity, Object[] currentState, String[] propertyNames) {
+    private void auditDelete(Object[] currentState, String[] propertyNames) {
         boolean changed = false;
-        if (entity instanceof BaseEntity) {
-            for (int i = 0; i < propertyNames.length; i++) {
-                if ("deletedBy".equals(propertyNames[i])) {
-                    Object currentDate = currentState[i];
-                    if (currentDate == null) {
-                        currentState[i] = TenantContext.getCurrentTenant();
-                        changed = true;
-                    }
+        for (int i = 0; i < propertyNames.length; i++) {
+            if ("deletedBy".equals(propertyNames[i])) {
+                Object currentDate = currentState[i];
+                if (currentDate == null) {
+                    currentState[i] = TenantContext.getCurrentTenant();
+                    changed = true;
                 }
             }
         }

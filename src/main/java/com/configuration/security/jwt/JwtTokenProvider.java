@@ -47,6 +47,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
         claims.put("auth", userDetails.getAuthorities());
+        //TODO : Implement getUserId in UserDetails interface
         //claims.put("userId", userDetails.getUserId());
         claims.put("userId", userRepository.findByUserName(userDetails.getUsername()).getId());
 

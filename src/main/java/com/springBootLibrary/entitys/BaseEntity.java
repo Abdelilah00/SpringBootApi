@@ -16,7 +16,7 @@ import java.sql.Date;
 @MappedSuperclass
 @FilterDef(
         name = "tenantFilter",
-        parameters = @ParamDef(name = "tenantId", type = "Long")
+        parameters = @ParamDef(name = "tenantId", type = "long")
 )
 @Filter(
         name = "tenantFilter",
@@ -32,8 +32,8 @@ public abstract class BaseEntity extends IdEntity {
     private Date updatedAt;
     private Date deletedAt = null;
 
-    private String createdBy;
-    private String updatedBy;
-    private String deletedBy;
+    private Long createdBy;
+    private Long updatedBy;
+    private Long deletedBy;
 }
 

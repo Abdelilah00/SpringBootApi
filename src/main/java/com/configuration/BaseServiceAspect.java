@@ -16,6 +16,7 @@ public class BaseServiceAspect {
     @PersistenceContext
     EntityManager entityManager;
 
+
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
         Session session = entityManager.unwrap(Session.class);
