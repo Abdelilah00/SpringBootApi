@@ -9,7 +9,6 @@ import com.springBootApi.domains.Customer;
 import com.springBootApi.domains.Product;
 import com.springBootApi.services.CustomerService;
 import com.springBootApi.services.ProductService;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
     private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
-    private SessionFactory sessionFactory;
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -34,13 +31,6 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    public BootStrapData(EntityManagerFactory factory) {
-        if (factory.unwrap(SessionFactory.class) == null) {
-            throw new NullPointerException("factory is not a hibernate factory");
-        }
-        this.sessionFactory = factory.unwrap(SessionFactory.class);
-    }
 
     @Override
     public void run(String... args) throws Exception {
