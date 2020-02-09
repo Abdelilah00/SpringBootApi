@@ -1,9 +1,25 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootApi.Dtos;
 
-import lombok.Data;
+import com.springBootLibrary.models.BaseDto;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class ProductDto {
-    private Long id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Getter
+@Setter
+public class ProductDto extends BaseDto {
+    @NotBlank
     private String name;
+
+    @NotNull
+    @Min(0)
+    private Long qte;
 }

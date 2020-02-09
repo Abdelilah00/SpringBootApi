@@ -3,24 +3,16 @@
 // developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.springBootApi.Dtos;
+package com.configuration.Exception;
 
-import com.springBootLibrary.models.BaseDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
 @Getter
 @Setter
-public class CustomerDto extends BaseDto {
-    @NotBlank
-    private String firstName;
-
-    @NotBlank
-    private String lastName;
-
-    @Email
-    private String email;
+@AllArgsConstructor
+public class ApiResponseTest extends Exception {
+    private Boolean success;
+    private String message;
 }

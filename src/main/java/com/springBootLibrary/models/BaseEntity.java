@@ -1,4 +1,9 @@
-package com.springBootLibrary.entitys;
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
+package com.springBootLibrary.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

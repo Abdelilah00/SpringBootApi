@@ -1,6 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootLibrary.repositorys;
 
-import com.springBootLibrary.entitys.BaseEntity;
+import com.springBootLibrary.models.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

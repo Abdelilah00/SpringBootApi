@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.security;
 
 import com.configuration.security.domains.User;
@@ -23,16 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User '" + userName + "' not found");
         }
-
-        /*return org.springframework.security.core.userdetails.User//
-                .withUsername(userName)//
-                .password(user.getPassword())//
-                .authorities(user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList()))//
-                .accountExpired(false)//
-                .accountLocked(false)//
-                .credentialsExpired(false)//
-                .disabled(false)//
-                .build();*/
 
         return new MyUserAuth(
                 user.getUserName(),

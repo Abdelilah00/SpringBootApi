@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.bootstrap;
 
 import com.configuration.TenantContext;
@@ -46,11 +51,11 @@ public class BootStrapData implements CommandLineRunner {
         userRepository.save(userAdmin);
 
 
-        Customer customer = new Customer("Abdelilah 1", "Dehaoui");
+        Customer customer = new Customer("Abdelilah 1", "Dehaoui", "abdelilah@gelail.cop");
         customer.setTenantId(1L);
         customerService.save(customer);
 
-        Customer customer1 = new Customer("Jamal 2", "Elghafouli");
+        Customer customer1 = new Customer("Jamal 2", "Elghafouli", "abdelilah@gelail.cop");
         customer.setTenantId(2L);
         customerService.save(customer1);
 
@@ -62,11 +67,11 @@ public class BootStrapData implements CommandLineRunner {
         customerService.save(new Customer("lamyae", "tal7awi"));*/
 
 
-        var prod1 = new Product("Bimoo from tenant 1", new ArrayList<>());
+        var prod1 = new Product("Bimoo from tenant 1", 10L, new ArrayList<>());
         prod1.setTenantId(1L);
         productService.save(prod1);
 
-        var prod2 = new Product("Picala from tenant 2", new ArrayList<>());
+        var prod2 = new Product("Picala from tenant 2", 10L, new ArrayList<>());
         prod2.setTenantId(2L);
         productService.save(prod2);
     }

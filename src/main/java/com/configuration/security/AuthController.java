@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.security;
 
 import com.configuration.Exception.ApiResponse;
@@ -15,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,12 +48,13 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping(path = "signIn")
-    public JwtResponseDto signIn(@RequestBody SignInRequestDto signInRequest) {
+    public JwtResponseDto signIn(@RequestBody SignInRequestDto signInRequest) throws AuthenticationException {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUserName(), signInRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        //TODO:User SecurityContextHolder.getContext()
         UserDetails userDetails = userDetailsService.loadUserByUsername(signInRequest.getUserName());
         return new JwtResponseDto(jwtTokenProvider.createToken(userDetails));
     }

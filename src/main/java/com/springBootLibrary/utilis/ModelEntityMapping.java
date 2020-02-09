@@ -1,11 +1,16 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootLibrary.utilis;
 
-import com.springBootLibrary.entitys.IdEntity;
+import com.springBootLibrary.models.IdEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -42,13 +47,11 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto> extends ModelMap
     }
 
     @Transactional
-    protected TDto convertToDto(TEntity entity) {
-        Assert.notNull(entity, "cannot map null Entity");
+    protected TDto convertToDto(@NotNull TEntity entity) {
         return map(entity, dtoClass);
     }
 
-    protected TEntity convertToEntity(TDto dto) {
-        Assert.notNull(dto, "cannot map null dto");
+    protected TEntity convertToEntity(@NotNull TDto dto) {
         return map(dto, entityClass);
     }
 }

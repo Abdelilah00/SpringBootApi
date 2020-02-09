@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.security.jwt;
 
 import com.configuration.Exception.CustomException;
@@ -18,7 +23,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
+            throws ServletException, IOException {
         String token = jwtTokenProvider.resolveToken(httpServletRequest);
         try {
             if (token != null && jwtTokenProvider.validateToken(token)) {
@@ -28,12 +34,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         } catch (CustomException ex) {
             //this is very important, since it guarantees the user is not authenticated at all
             SecurityContextHolder.clearContext();
-            httpServletResponse.sendError(ex.getHttpStatus().value(), ex.getMessage());
+            //TODO : Use ErrorSender
+           /* httpServletResponse.sendError(ex.getHttpStatus().value(), ex.getMessage());
+            return;*/
+            httpServletResponse.setStatus(ex.getHttpStatus().value());
+            httpServletResponse.getWriter().write(ex.getMessage());
             return;
-
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
-
 }

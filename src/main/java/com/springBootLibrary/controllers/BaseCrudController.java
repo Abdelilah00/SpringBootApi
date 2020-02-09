@@ -1,6 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootLibrary.controllers;
 
-import com.springBootLibrary.entitys.IdEntity;
+import com.springBootLibrary.models.IdEntity;
 import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.ModelEntityMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,20 +34,20 @@ public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEnt
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TDto getOne(@PathVariable(value = "id") long id) throws ExecutionException, InterruptedException {
+    public TEntity getOne(@PathVariable(value = "id") long id) {
         var x = service.getOne(id);
-        return convertToDto(x);
+        return x;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public TDto create(@RequestBody TDto dto) throws ExecutionException, InterruptedException {
+    public TDto create(@Valid @RequestBody TDto dto) {
         var x = convertToEntity(dto);
         var xx = service.save(x);
         return convertToDto(xx);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public TDto update(@PathVariable(value = "id") long id, @RequestBody TDto dto) throws ExecutionException, InterruptedException {
+    public TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TDto dto) {
 /*
         assert id == dto.getId():"Id Not Equals";
 */

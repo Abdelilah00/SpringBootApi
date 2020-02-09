@@ -1,6 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootApi.domains;
 
-import com.springBootLibrary.entitys.BaseEntity;
+import com.springBootLibrary.models.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

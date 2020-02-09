@@ -1,6 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration;
 
-import com.springBootLibrary.entitys.BaseEntity;
+import com.springBootLibrary.models.BaseEntity;
 import org.hibernate.EmptyInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
