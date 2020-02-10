@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     }
 
     @Override
-    public TEntity getOne(Long aLong) {
+    public TEntity getOne(Long aLong) throws EntityNotFoundException {
         return repository.getOne(aLong);
     }
 
