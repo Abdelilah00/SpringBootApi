@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Collections;
 
 @RestController
@@ -24,7 +25,7 @@ public class OwnersController extends BaseCrudController<Owner, OwnerDto> {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/withStore")
-    public OwnerDto withStore(@RequestBody OwnerDto dto) {
+    public OwnerDto withStore(@Valid @RequestBody OwnerDto dto) {
         var owner = objectMapper.convertToEntity(dto);
         var store = new Store();
         store.setName(dto.getStoreName());
