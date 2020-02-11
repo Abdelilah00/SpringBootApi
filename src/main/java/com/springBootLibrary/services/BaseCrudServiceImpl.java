@@ -5,27 +5,20 @@
 
 package com.springBootLibrary.services;
 
-import com.configuration.TenantContext;
 import com.springBootLibrary.models.BaseEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Transactional
 public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCrudService<TEntity> {
-    private static Logger logger = LoggerFactory.getLogger(TenantContext.class.getName());
-
-
     @Autowired
     private IBaseJpaRepository<TEntity> repository;
 
@@ -60,7 +53,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     }
 
     @Override
-    public TEntity getOne(Long aLong) throws EntityNotFoundException {
+    public TEntity getOne(Long aLong) {
         return repository.getOne(aLong);
     }
 

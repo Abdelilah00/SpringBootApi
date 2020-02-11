@@ -5,18 +5,18 @@
 
 package com.configuration.Exception;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
-@Data
-public class ApiError {
+@Getter
+@RequiredArgsConstructor
+public class UserFriendlyException extends Throwable {
+    private static final long serialVersionUID = 1L;
 
-    private HttpStatus status;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private LocalDateTime timestamp = LocalDateTime.now();
-    private String message;
-    private String debugMessage;
+    @NotNull
+    private final String message;
+    private final HttpStatus httpStatus = null;
 }

@@ -5,19 +5,15 @@
 
 package com.springBootLibrary.models;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.*;
 
 import javax.persistence.MappedSuperclass;
 import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
-@Getter
-@Setter
-@ToString
+@Data
 @MappedSuperclass
 @FilterDef(
         name = "tenantFilter",
@@ -28,7 +24,6 @@ import java.sql.Date;
         condition = "tenantId = :tenantId"
 )
 public abstract class BaseEntity extends IdEntity {
-
     private long tenantId;
 
     @CreationTimestamp

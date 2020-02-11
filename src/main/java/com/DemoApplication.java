@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com;
 
 import org.springframework.boot.SpringApplication;
@@ -29,4 +34,11 @@ public class DemoApplication {
         executor.initialize();
         return executor;
     }
+
+ /*   @Bean
+    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+        return builder;
+    }*/
 }

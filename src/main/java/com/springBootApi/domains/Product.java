@@ -6,7 +6,10 @@
 package com.springBootApi.domains;
 
 import com.springBootLibrary.models.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -16,9 +19,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = false)
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +30,7 @@ public class Product extends BaseEntity {
     private String name;
     @Min(0)
     @NotNull
-    private Long qte;
+    private Long qtyStock;
 
     @OneToMany
     private List<InvoiceDetails> invoiceDetails = new ArrayList<>();

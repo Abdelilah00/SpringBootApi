@@ -5,6 +5,8 @@
 
 package com.springBootLibrary.controllers;
 
+import com.configuration.Exception.UserFriendlyException;
+import com.springBootLibrary.models.BaseDto;
 import com.springBootLibrary.models.IdEntity;
 import com.springBootLibrary.services.IBaseCrudService;
 import com.springBootLibrary.utilis.ModelEntityMapping;
@@ -18,46 +20,48 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class BaseCrudController<TEntity extends IdEntity, TDto> extends ModelEntityMapping<TEntity, TDto> {
+public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends BaseDto> {
 
     @Autowired
-    private IBaseCrudService<TEntity> service;
+    protected IBaseCrudService<TEntity> service;
+    protected ModelEntityMapping<TEntity, TDto> objectMapper = new ModelEntityMapping<>();
 
-    public BaseCrudController(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
-        super(tEntityClass, tDtoClass);
+    protected BaseCrudController(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
+        objectMapper.setDtoClass(tDtoClass);
+        objectMapper.setEntityClass(tEntityClass);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<TDto> getAll() throws ExecutionException, InterruptedException {
+    protected List<TDto> getAll() throws ExecutionException, InterruptedException {
         var x = service.findAll();
-        return convertToDtoList(x).get();
+        return objectMapper.convertToDtoList(x).get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public TEntity getOne(@PathVariable(value = "id") long id) {
-        var x = service.getOne(id);
-        return x;
+    protected TEntity getOne(@PathVariable(value = "id") long id) {
+        return service.getOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public TDto create(@Valid @RequestBody TDto dto) {
-        var x = convertToEntity(dto);
+    protected TDto create(@Valid @RequestBody TDto dto) {
+        var x = objectMapper.convertToEntity(dto);
         var xx = service.save(x);
-        return convertToDto(xx);
+        return objectMapper.convertToDto(xx);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TDto dto) {
-/*
-        assert id == dto.getId():"Id Not Equals";
-*/
-        var x = convertToEntity(dto);
+    protected TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TDto dto) throws UserFriendlyException {
+
+        if (id != dto.getId())
+            throw new UserFriendlyException("Id and model not equals");
+
+        var x = objectMapper.convertToEntity(dto);
         var xx = service.save(x);
-        return convertToDto(xx);
+        return objectMapper.convertToDto(xx);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") long id) {
+    protected void delete(@PathVariable(value = "id") long id) {
         service.deleteById(id);
     }
 }

@@ -3,16 +3,12 @@
 // developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.configuration.Exception;
+package com.springBootApi.services;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.springBootApi.domains.Owner;
+import com.springBootLibrary.services.BaseCrudServiceImpl;
+import org.springframework.stereotype.Service;
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class ApiResponseTest extends Exception {
-    private Boolean success;
-    private String message;
+@Service
+public class OwnerService extends BaseCrudServiceImpl<Owner> {
 }
