@@ -37,7 +37,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
 
     @Override
     public TDto getOne(Long aLong) {
-        //TODO: Test Item If Have no Exception to handel It
+        //TODO: Test Item If Have no Exception to handel It v
         var item = repository.getOne(aLong);
         return objectMapper.convertToDto(item);
     }
@@ -53,8 +53,8 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
     }
 
     @Override
-    public Optional<TDto> findById(Long aLong) {
-        return Optional.ofNullable(objectMapper.convertToDto(repository.findById(aLong).get()));
+    public TDto findById(Long aLong) {
+        return objectMapper.convertToDto(repository.findById(aLong).get());
     }
 
     @Override
@@ -87,6 +87,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
     public void deleteAllInBatch() {
 
     }
+
     @Override
     public List<TDto> findAll(Example<TDto> example) {
         return (null);
@@ -115,7 +116,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
 
     @Override
     public Optional<TDto> findOne(Example<TDto> example) {
-        return (Optional.empty());
+        return null;
     }
 
     @Override

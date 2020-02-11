@@ -33,11 +33,11 @@ public interface IBaseCrudService<TEntity, TDto> {
 
     void deleteAllInBatch();
 
-    TDto getOne(Long aLong);
+    TDto getOne(Long aLong) throws InterruptedException;
 
     TDto save(TDto dto);
 
-    Optional<TDto> findById(Long aLong);
+    TDto findById(Long aLong);
 
     void deleteById(Long aLong);
 

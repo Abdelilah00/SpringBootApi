@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerDto> {
+public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerDto> implements IOwnerService<Owner, OwnerDto> {
     public OwnerService() {
         super(Owner.class, OwnerDto.class);
     }

@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,12 @@ public class ModelEntityMapping<TEntity extends IdEntity, TDto extends BaseDto> 
     /*
         @Transactional
     */
-    public TDto convertToDto(@NotNull TEntity entity) {
+    public TDto convertToDto(@NotNull TEntity entity) throws EntityNotFoundException {
+        if (entity.getId() == 0)
+            throw new EntityNotFoundException("Entity Not Found");
         return map(entity, dtoClass);
+
+
     }
 
     public TEntity convertToEntity(@NotNull TDto dto) {

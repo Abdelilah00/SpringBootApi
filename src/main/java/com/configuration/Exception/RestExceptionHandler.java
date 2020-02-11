@@ -23,7 +23,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
@@ -42,6 +44,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             return super.handleHttpMessageNotWritable(ex, headers, status, request);
         }
     }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         logger.info(ex.getClass().getName());
@@ -57,21 +60,31 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
     }
 
+
     @ExceptionHandler(UserFriendlyException.class)
     protected ResponseEntity<Object> handleUserFriendly(UserFriendlyException ex) {
         ApiError apiError = new ApiError();
-        apiError.setStatus(HttpStatus.EXPECTATION_FAILED);
+        apiError.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleUserFriendly(EntityNotFoundException ex) {
+    @ExceptionHandler(NoSuchElementException.class)
+    protected ResponseEntity<Object> handleUserFriendly(NoSuchElementException ex) {
         ApiError apiError = new ApiError();
-        apiError.setStatus(HttpStatus.EXPECTATION_FAILED);
-        apiError.setMessage(ex.getMessage());
+        apiError.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        apiError.setMessage("Entity Not Found");
+        apiError.setDebugMessage(Collections.singletonList(ex.getMessage()));
         return buildResponseEntity(apiError);
     }
+
+    /*@ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleUserFriendly(EntityNotFoundException ex) {
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }*/
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
