@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.swagger;
 
 import org.springframework.context.annotation.Bean;
@@ -33,13 +38,11 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
         apiInfoBuilder.title("Generic REST API");
         apiInfoBuilder.description("Simple REST API Generation");
         apiInfoBuilder.version("0.0.1-SNAPSHOT");
         apiInfoBuilder.contact(new Contact("Abdelilah Dehaoui", "https://www.linkedin.com/in/abdelilah-dehaoui-4a1a29190", "abdelilah0dehaoui@gmail.com"));
-
         return apiInfoBuilder.build();
     }
 

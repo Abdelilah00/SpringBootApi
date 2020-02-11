@@ -37,9 +37,7 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
 
     @Override
     public TDto getOne(Long aLong) {
-        //TODO: Test Item If Have no Exception to handel It v
-        var item = repository.getOne(aLong);
-        return objectMapper.convertToDto(item);
+        return null;
     }
 
     @Override

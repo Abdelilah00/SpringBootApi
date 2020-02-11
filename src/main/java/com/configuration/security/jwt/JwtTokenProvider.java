@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration.security.jwt;
 
 import com.configuration.Exception.CustomException;
@@ -49,7 +54,6 @@ public class JwtTokenProvider {
         claims.put("auth", userDetails.getAuthorities());
         //TODO : Implement getUserId in UserDetails interface
         //claims.put("userId", userDetails.getUserId());
-        //claims.put("userId", userRepository.findByUserName(userDetails.getUsername()).getId());
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -63,7 +67,6 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        //TODO: Simplify get auth from token
         UserDetails userDetails1 = userDetails.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails1, "", userDetails1.getAuthorities());
     }

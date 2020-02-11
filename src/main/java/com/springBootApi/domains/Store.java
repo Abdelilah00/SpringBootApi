@@ -9,7 +9,6 @@ import com.springBootLibrary.models.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +23,6 @@ public class Store extends BaseEntity {
     @NotBlank
     private String name;
 
-    @ManyToMany(mappedBy = "stores", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "stores")
     private List<Owner> owners = new ArrayList<>();
 }

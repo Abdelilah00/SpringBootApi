@@ -54,16 +54,14 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(signInRequest.getUserName(), signInRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        //TODO:User SecurityContextHolder.getContext()
-        UserDetails userDetails = userDetailsService.loadUserByUsername(signInRequest.getUserName());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return new JwtResponseDto(jwtTokenProvider.createToken(userDetails));
     }
 
     @PostMapping(path = "signUp")
-    public ResponseEntity signUp(@Valid @RequestBody SignUpRequestDto signUpRequest) {
+    public ResponseEntity<ApiResponse> signUp(@Valid @RequestBody SignUpRequestDto signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUserName())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
         }
         User result = userRepository.save(new User(signUpRequest.getUserName(), passwordEncoder.encode(signUpRequest.getPassword()), "y@y.com", true, Collections.singletonList(new Role(RoleName.ROLE_USER, null))));
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/auth/signIn/{userName}").buildAndExpand(result.getUserName()).toUri();

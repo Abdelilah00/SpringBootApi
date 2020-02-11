@@ -30,7 +30,7 @@ public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends 
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    protected TDto findOne(@PathVariable(value = "id") long id) throws InterruptedException {
+    protected TDto getById(@PathVariable(value = "id") long id) throws InterruptedException {
         return service.findById(id);
     }
 
