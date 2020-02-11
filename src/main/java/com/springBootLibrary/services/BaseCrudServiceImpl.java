@@ -5,8 +5,10 @@
 
 package com.springBootLibrary.services;
 
+import com.springBootLibrary.models.BaseDto;
 import com.springBootLibrary.models.BaseEntity;
 import com.springBootLibrary.repositorys.IBaseJpaRepository;
+import com.springBootLibrary.utilis.ModelEntityMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,68 +20,41 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCrudService<TEntity> {
+public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDto> implements IBaseCrudService<TEntity, TDto> {
     @Autowired
-    private IBaseJpaRepository<TEntity> repository;
+    protected IBaseJpaRepository<TEntity> repository;
+    protected ModelEntityMapping<TEntity, TDto> objectMapper = new ModelEntityMapping<>();
 
-    @Override
-    public List<TEntity> findAll() {
-        return (repository.findAll());
+    protected BaseCrudServiceImpl(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
+        objectMapper.setDtoClass(tDtoClass);
+        objectMapper.setEntityClass(tEntityClass);
     }
 
     @Override
-    public List<TEntity> findAll(Sort sort) {
+    public List<TDto> findAll() {
+        return objectMapper.convertToDtoList(repository.findAll());
+    }
+
+    @Override
+    public TDto getOne(Long aLong) {
+        //TODO: Test Item If Have no Exception to handel It
+        var item = repository.getOne(aLong);
+        return objectMapper.convertToDto(item);
+    }
+
+    @Override
+    public Page<TDto> findAll(Pageable pageable) {
         return (null);
     }
 
     @Override
-    public List<TEntity> saveAll(Iterable<TEntity> entities) {
-        return (null);
+    public TDto save(TDto entity) {
+        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)));
     }
 
     @Override
-    public TEntity saveAndFlush(TEntity entity) {
-        return (null);
-    }
-
-    @Override
-    public void deleteInBatch(Iterable<TEntity> entities) {
-
-    }
-
-    @Override
-    public void deleteAllInBatch() {
-
-    }
-
-    @Override
-    public TEntity getOne(Long aLong) {
-        return repository.getOne(aLong);
-    }
-
-    @Override
-    public List<TEntity> findAll(Example<TEntity> example) {
-        return (null);
-    }
-
-    @Override
-    public List<TEntity> findAll(Example<TEntity> example, Sort sort) {
-        return (null);
-    }
-
-    @Override
-    public Page<TEntity> findAll(Pageable pageable) {
-        return (null);
-    }
-
-    @Override
-    public TEntity save(TEntity entity) {
-        return (repository.save(entity));
-    }
-
-    @Override
-    public Optional<TEntity> findById(Long aLong) {
-        return (Optional.ofNullable(repository.getOne(aLong)));
+    public Optional<TDto> findById(Long aLong) {
+        return Optional.ofNullable(objectMapper.convertToDto(repository.findById(aLong).get()));
     }
 
     @Override
@@ -87,13 +62,49 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
         repository.deleteById(aLong);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void delete(TEntity entity) {
+    public List<TDto> findAll(Sort sort) {
+        return (null);
+    }
+
+    @Override
+    public List<TDto> saveAll(Iterable<TDto> entities) {
+        return (null);
+    }
+
+    @Override
+    public TDto saveAndFlush(TDto entity) {
+        return (null);
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<TDto> entities) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<? extends TEntity> entities) {
+    public void deleteAllInBatch() {
+
+    }
+    @Override
+    public List<TDto> findAll(Example<TDto> example) {
+        return (null);
+    }
+
+    @Override
+    public List<TDto> findAll(Example<TDto> example, Sort sort) {
+        return (null);
+    }
+
+
+    @Override
+    public void delete(TDto entity) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends TDto> entities) {
 
     }
 
@@ -103,12 +114,12 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity> implements IBaseCru
     }
 
     @Override
-    public Optional<TEntity> findOne(Example<TEntity> example) {
+    public Optional<TDto> findOne(Example<TDto> example) {
         return (Optional.empty());
     }
 
     @Override
-    public Page<TEntity> findAll(Example<TEntity> example, Pageable pageable) {
+    public Page<TDto> findAll(Example<TDto> example, Pageable pageable) {
         return (null);
     }
 }

@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.springBootLibrary.services;
 
 import org.springframework.data.domain.Example;
@@ -7,41 +12,42 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
-public interface IBaseCrudService<TEntity> {
-    List<TEntity> findAll();
+public interface IBaseCrudService<TEntity, TDto> {
+    List<TDto> findAll() throws ExecutionException, InterruptedException;
 
-    List<TEntity> findAll(Sort sort);
+    List<TDto> findAll(Sort sort);
 
-    List<TEntity> findAll(Example<TEntity> example);
+    List<TDto> findAll(Example<TDto> example);
 
-    List<TEntity> findAll(Example<TEntity> example, Sort sort);
+    List<TDto> findAll(Example<TDto> example, Sort sort);
 
-    Page<TEntity> findAll(Pageable pageable);
+    Page<TDto> findAll(Pageable pageable);
 
-    List<TEntity> saveAll(Iterable<TEntity> entities);
+    List<TDto> saveAll(Iterable<TDto> entities);
 
-    TEntity saveAndFlush(TEntity entity);
+    TDto saveAndFlush(TDto entity);
 
-    void deleteInBatch(Iterable<TEntity> entities);
+    void deleteInBatch(Iterable<TDto> entities);
 
     void deleteAllInBatch();
 
-    TEntity getOne(Long aLong);
+    TDto getOne(Long aLong);
 
-    TEntity save(TEntity entity);
+    TDto save(TDto dto);
 
-    Optional<TEntity> findById(Long aLong);
+    Optional<TDto> findById(Long aLong);
 
     void deleteById(Long aLong);
 
-    void delete(TEntity entity);
+    void delete(TDto entity);
 
-    void deleteAll(Iterable<? extends TEntity> entities);
+    void deleteAll(Iterable<? extends TDto> entities);
 
     void deleteAll();
 
-    Optional<TEntity> findOne(Example<TEntity> example);
+    Optional<TDto> findOne(Example<TDto> example);
 
-    Page<TEntity> findAll(Example<TEntity> example, Pageable pageable);
+    Page<TDto> findAll(Example<TDto> example, Pageable pageable);
 }

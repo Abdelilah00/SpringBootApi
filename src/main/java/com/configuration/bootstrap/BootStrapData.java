@@ -12,8 +12,8 @@ import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
 import com.springBootApi.domains.Customer;
 import com.springBootApi.domains.Product;
-import com.springBootApi.services.CustomerService;
-import com.springBootApi.services.ProductService;
+import com.springBootApi.repositorys.ICustomerRepository;
+import com.springBootApi.repositorys.IProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +32,9 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private ProductService productService;
+    private IProductRepository productService;
     @Autowired
-    private CustomerService customerService;
+    private ICustomerRepository customerService;
 
 
     @Override

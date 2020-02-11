@@ -25,8 +25,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
-
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -35,7 +33,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         try {
             if (ex.getCause() instanceof JsonMappingException && ex.getCause().getCause() instanceof EntityNotFoundException) {
                 ApiError apiError = new ApiError();
-                apiError.setStatus(INTERNAL_SERVER_ERROR);
+                apiError.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
                 apiError.setMessage(ex.getCause().getCause().getMessage());
                 return buildResponseEntity(apiError);
             }
@@ -44,15 +42,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             return super.handleHttpMessageNotWritable(ex, headers, status, request);
         }
     }
-
-    @ExceptionHandler(UserFriendlyException.class)
-    protected ResponseEntity<Object> handleUserFriendly(UserFriendlyException ex) {
-        ApiError apiError = new ApiError();
-        apiError.setStatus(EXPECTATION_FAILED);
-        apiError.setMessage(ex.getMessage());
-        return buildResponseEntity(apiError);
-    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         logger.info(ex.getClass().getName());
@@ -64,8 +53,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
-        final ApiError apiError = new ApiError(BAD_REQUEST, LocalDateTime.now(), ex.getLocalizedMessage(), errors);
+        final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, LocalDateTime.now(), ex.getLocalizedMessage(), errors);
         return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
+    }
+
+    @ExceptionHandler(UserFriendlyException.class)
+    protected ResponseEntity<Object> handleUserFriendly(UserFriendlyException ex) {
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.EXPECTATION_FAILED);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleUserFriendly(EntityNotFoundException ex) {
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.EXPECTATION_FAILED);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
