@@ -11,7 +11,7 @@ import com.springBootLibrary.services.BaseCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerService extends BaseCrudServiceImpl<Customer, CustomerDto> {
+public class CustomerService extends BaseCrudServiceImpl<Customer, CustomerDto> implements ICustomerService {
     public CustomerService() {
         super(Customer.class, CustomerDto.class);
     }

@@ -3,13 +3,11 @@
 // developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.springBootApi.Dtos;
+package com.springBootApi.services;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.springBootApi.Dtos.ProductDto;
+import com.springBootApi.domains.Product;
+import com.springBootLibrary.services.IBaseCrudService;
 
-@Getter
-@Setter
-public class StoreDto {
-    private String name;
+public interface IProductService extends IBaseCrudService<Product, ProductDto> {
 }

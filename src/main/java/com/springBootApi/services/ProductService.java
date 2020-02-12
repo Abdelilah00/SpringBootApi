@@ -11,9 +11,9 @@ import com.springBootLibrary.services.BaseCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService extends BaseCrudServiceImpl<Product, ProductDto> {
+public class ProductService extends BaseCrudServiceImpl<Product, ProductDto> implements IProductService {
     public ProductService() {
         super(Product.class, ProductDto.class);
     }
-
 }
+

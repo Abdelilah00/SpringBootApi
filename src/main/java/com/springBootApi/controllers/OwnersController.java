@@ -21,6 +21,6 @@ import javax.validation.Valid;
 public class OwnersController extends BaseCrudController<Owner, OwnerDto> {
     @RequestMapping(method = RequestMethod.POST, path = "/withStore")
     public OwnerDto withStore(@Valid @RequestBody OwnerDto dto) {
-        return ((IOwnerService<Owner, OwnerDto>) service).withStore(dto);
+        return ((IOwnerService) service).withStore(dto);
     }
 }

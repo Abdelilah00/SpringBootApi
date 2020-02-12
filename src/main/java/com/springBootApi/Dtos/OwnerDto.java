@@ -7,12 +7,16 @@ package com.springBootApi.Dtos;
 
 import com.springBootLibrary.models.BaseDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class OwnerDto extends BaseDto {
     @NotBlank
     private String firstName;
@@ -20,5 +24,13 @@ public class OwnerDto extends BaseDto {
     private String lastName;
     @NotBlank
     private String storeName;
+
+    private List<StoreDto> stores = new ArrayList<>();
+
+    public OwnerDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String storeName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.storeName = storeName;
+    }
 }
 

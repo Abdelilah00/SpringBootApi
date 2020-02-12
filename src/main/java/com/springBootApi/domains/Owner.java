@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,11 @@ public class Owner extends BaseEntity {
     @NotBlank
     private String lastName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-/*    @JoinTable(
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    /*@JoinTable(
             name = "store_owners",
             joinColumns = {@JoinColumn(name = "store_id")},
             inverseJoinColumns = {@JoinColumn(name = "owner_id")})*/
     private List<Store> stores = new ArrayList<>();
+
 }

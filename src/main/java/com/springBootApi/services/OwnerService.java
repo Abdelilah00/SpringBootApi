@@ -11,19 +11,20 @@ import com.springBootApi.domains.Store;
 import com.springBootLibrary.services.BaseCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 @Service
-public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerDto> implements IOwnerService<Owner, OwnerDto> {
+public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerDto> implements IOwnerService {
     public OwnerService() {
         super(Owner.class, OwnerDto.class);
     }
 
     public OwnerDto withStore(OwnerDto dto) {
         var owner = objectMapper.convertToEntity(dto);
+        owner.setTenantId(2L);
         var store = new Store();
+        store.setTenantId(2L);
         store.setName(dto.getStoreName());
-        owner.setStores(Collections.singletonList(store));
+        store.setOwner(owner);
+        owner.getStores().add(store);
         return objectMapper.convertToDto(repository.save(owner));
     }
 }

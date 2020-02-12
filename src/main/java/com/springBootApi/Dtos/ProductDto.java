@@ -21,5 +21,5 @@ public class ProductDto extends BaseDto {
 
     @NotNull
     @Min(0)
-    private Long qte;
+    private Long qteStock;
 }

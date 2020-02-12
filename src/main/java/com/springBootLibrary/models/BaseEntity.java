@@ -32,8 +32,8 @@ public abstract class BaseEntity extends IdEntity {
     private Date updatedAt;
     private Date deletedAt = null;
 
-    private Long createdBy;
-    private Long updatedBy;
-    private Long deletedBy;
+    private long createdBy;
+    private long updatedBy;
+    private long deletedBy;
 }
 

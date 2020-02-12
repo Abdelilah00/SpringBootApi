@@ -33,9 +33,9 @@ public interface IBaseJpaRepository<TEntity extends BaseEntity> extends JpaRepos
     void deleteById(Serializable serializable);
 
 
-   /* //Soft delete.
+    //Soft delete.
     @Modifying
     @Query("update #{#entityName} e set e.deletedAt=null where e.id=?1")
-    public void deleteById(String id);*/
+    void deleteById(long id);
 }
 
