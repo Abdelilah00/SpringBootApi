@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020                                                          /
+// developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
+////////////////////////////////////////////////////////////////////////////////
+
 package com.configuration;
 
 import com.springBootLibrary.services.IBaseCrudService;
@@ -19,9 +24,8 @@ public class BaseServiceAspect {
 
     @Before("execution(* com.springBootLibrary.services.BaseCrudServiceImpl.*(..)) && target(service)")
     public void aroundExecution(IBaseCrudService service) throws Throwable {
-        if (TenantContext.getCurrentTenant() != 0L) {
             Session session = entityManager.unwrap(Session.class);
             session.enableFilter("tenantFilter").setParameter("tenantId", TenantContext.getCurrentTenant());
-        }
+
     }
 }

@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -24,8 +22,6 @@ public class OwnerCreateDto extends BaseDto {
     private String lastName;
     @NotBlank
     private String storeName;
-
-    private List<StoreDto> stores = new ArrayList<>();
 
     public OwnerCreateDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String storeName) {
         this.firstName = firstName;

@@ -40,8 +40,6 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private IUserRepository userRepository;
