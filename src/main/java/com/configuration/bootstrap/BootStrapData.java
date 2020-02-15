@@ -57,7 +57,7 @@ public class BootStrapData implements CommandLineRunner {
         customer.setTenantId(2L);
         customerRepository.save(customer);
         Customer customer1 = new Customer("Jamal 2", "Elghafouli", "abdelilah@gelail.cop");
-        customer.setTenantId(2L);
+        customer1.setTenantId(2L);
         customerRepository.save(customer1);
 
         var store = ownerService.withStore(new OwnerCreateDto("Abdelilah", "Dehaoui", "Alexa"));

@@ -48,8 +48,8 @@ public class MyInterceptor extends EmptyInterceptor {
         boolean changed = false;
         for (int i = 0; i < propertyNames.length; i++) {
             if ("createdBy".equals(propertyNames[i])) {
-                Object currentDate = currentState[i];
-                if (currentDate == null) {
+                Object currentCreatedBy = currentState[i];
+                if ((Long) currentCreatedBy == 0) {
                     currentState[i] = TenantContext.getCurrentTenant();
                     changed = true;
                 }
@@ -62,8 +62,8 @@ public class MyInterceptor extends EmptyInterceptor {
         boolean changed = false;
         for (int i = 0; i < propertyNames.length; i++) {
             if ("updatedBy".equals(propertyNames[i])) {
-                Object currentDate = currentState[i];
-                if (currentDate == null) {
+                Object currentUpdatedBy = currentState[i];
+                if ((Long) currentUpdatedBy == 0) {
                     currentState[i] = TenantContext.getCurrentTenant();
                     changed = true;
                 }
@@ -75,8 +75,8 @@ public class MyInterceptor extends EmptyInterceptor {
     private void auditDelete(Object[] currentState, String[] propertyNames) {
         for (int i = 0; i < propertyNames.length; i++) {
             if ("deletedBy".equals(propertyNames[i])) {
-                Object currentDate = currentState[i];
-                if (currentDate == null) {
+                Object currentDeletedBy = currentState[i];
+                if ((Long) currentDeletedBy == 0) {
                     currentState[i] = TenantContext.getCurrentTenant();
                 }
             }
