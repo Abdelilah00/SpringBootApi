@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OwnerDto extends BaseDto {
+public class OwnerCreateDto extends BaseDto {
     @NotBlank
     private String firstName;
     @NotBlank
@@ -27,10 +27,9 @@ public class OwnerDto extends BaseDto {
 
     private List<StoreDto> stores = new ArrayList<>();
 
-    public OwnerDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String storeName) {
+    public OwnerCreateDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String storeName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.storeName = storeName;
     }
 }
-

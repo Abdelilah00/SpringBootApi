@@ -10,9 +10,10 @@ import com.configuration.security.domains.Role;
 import com.configuration.security.domains.RoleName;
 import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
-import com.springBootApi.Dtos.OwnerDto;
+import com.springBootApi.Dtos.OwnerCreateDto;
 import com.springBootApi.domains.Customer;
 import com.springBootApi.domains.Product;
+import com.springBootApi.domains.Store;
 import com.springBootApi.repositorys.ICustomerRepository;
 import com.springBootApi.repositorys.IProductRepository;
 import com.springBootApi.services.IOwnerService;
@@ -23,7 +24,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 @Component
@@ -34,11 +34,12 @@ public class BootStrapData implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private IProductRepository productService;
+    private IProductRepository productRepository;
     @Autowired
-    private ICustomerRepository customerService;
+    private ICustomerRepository customerRepository;
     @Autowired
     private IOwnerService ownerService;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -52,25 +53,25 @@ public class BootStrapData implements CommandLineRunner {
         User userAdmin = new User("admin", passwordEncoder.encode("admin"), "admin@x.com", true, Collections.singletonList(adminRole));
         userRepository.save(userAdmin);
 
-
         Customer customer = new Customer("Abdelilah 1", "Dehaoui", "abdelilah@gelail.cop");
         customer.setTenantId(1L);
-        customerService.save(customer);
+        customerRepository.save(customer);
         Customer customer1 = new Customer("Jamal 2", "Elghafouli", "abdelilah@gelail.cop");
         customer.setTenantId(2L);
-        customerService.save(customer1);
+        customerRepository.save(customer1);
 
-        var prod1 = new Product("Bimoo from tenant 1", 10L, new ArrayList<>());
-        prod1.setTenantId(1L);
-        productService.save(prod1);
-        var prod2 = new Product("Picala from tenant 2", 10L, new ArrayList<>());
-        prod2.setTenantId(2L);
-        productService.save(prod2);
-
-
-        ownerService.withStore(new OwnerDto("Abdelilah", "Dehaoui", "Alexa"));
-        ownerService.withStore(new OwnerDto("Amine", "bachan", "test"));
+        var store = ownerService.withStore(new OwnerCreateDto("Abdelilah", "Dehaoui", "Alexa"));
+       /* ownerService.withStore(new OwnerDto("Amine", "bachan", "test"));
         ownerService.withStore(new OwnerDto("zaki", "bali", "pprn"));
-        ownerService.withStore(new OwnerDto("oussama", "Dehaoui", "xxxx"));
+        ownerService.withStore(new OwnerDto("oussama", "Dehaoui", "xxxx"));*/
+
+        var storeEntity = new Store();
+        storeEntity.setId(store.getId());
+        var prod1 = new Product("Bimoo from tenant 1", 10L, storeEntity);
+        prod1.setTenantId(2L);
+        productRepository.save(prod1);
+        var prod2 = new Product("Picala from tenant 2", 10L, storeEntity);
+        prod2.setTenantId(2L);
+        productRepository.save(prod2);
     }
 }

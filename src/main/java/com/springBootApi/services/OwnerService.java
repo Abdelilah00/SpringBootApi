@@ -5,19 +5,19 @@
 
 package com.springBootApi.services;
 
-import com.springBootApi.Dtos.OwnerDto;
+import com.springBootApi.Dtos.OwnerCreateDto;
 import com.springBootApi.domains.Owner;
 import com.springBootApi.domains.Store;
 import com.springBootLibrary.services.BaseCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerDto> implements IOwnerService {
+public class OwnerService extends BaseCrudServiceImpl<Owner, OwnerCreateDto> implements IOwnerService {
     public OwnerService() {
-        super(Owner.class, OwnerDto.class);
+        super(Owner.class, OwnerCreateDto.class);
     }
 
-    public OwnerDto withStore(OwnerDto dto) {
+    public OwnerCreateDto withStore(OwnerCreateDto dto) {
         var owner = objectMapper.convertToEntity(dto);
         owner.setTenantId(2L);
         var store = new Store();

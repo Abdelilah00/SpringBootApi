@@ -5,12 +5,17 @@
 
 package com.springBootApi.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springBootLibrary.models.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
 @Getter
@@ -23,6 +28,12 @@ public class Store extends BaseEntity {
     @NotBlank
     private String name;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "store")
+    @JsonBackReference
+    //@Fetch(FetchMode.JOIN)
+    private List<Product> products = new ArrayList<>();
+
+    @ManyToOne()
+    @JsonManagedReference
     private Owner owner;
 }
