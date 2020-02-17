@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-public interface IBaseCrudService<TEntity, TDto> {
+public interface IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> {
     List<TDto> findAll() throws ExecutionException, InterruptedException;
 
     List<TDto> findAll(Sort sort);
@@ -35,7 +35,9 @@ public interface IBaseCrudService<TEntity, TDto> {
 
     TDto getOne(Long aLong) throws InterruptedException;
 
-    TDto save(TDto dto);
+    TDto create(TCreateDto dto);
+
+    TDto update(TUpdateDto dto);
 
     TDto findById(Long aLong);
 

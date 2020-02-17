@@ -20,19 +20,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDto> implements IBaseCrudService<TEntity, TDto> {
+public class BaseCrudServiceImpl<TEntity extends BaseEntity,
+        TDto extends BaseDto,
+        TCreateDto extends BaseDto,
+        TUpdateDto extends BaseDto>
+        implements IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> {
+
     @Autowired
     protected IBaseJpaRepository<TEntity> repository;
-    protected ModelEntityMapping<TEntity, TDto> objectMapper = new ModelEntityMapping<>();
+    protected ModelEntityMapping<TEntity> objectMapper = new ModelEntityMapping<>();
+    private Class<TDto> dtoClass;
+    private Class<TCreateDto> dtoCreateClass;
+    private Class<TUpdateDto> dtoUpdateClass;
 
-    protected BaseCrudServiceImpl(Class<TEntity> tEntityClass, Class<TDto> tDtoClass) {
-        objectMapper.setDtoClass(tDtoClass);
+    public BaseCrudServiceImpl(Class<TEntity> tEntityClass, Class<TDto> dtoClass, Class<TCreateDto> dtoCreateClass, Class<TUpdateDto> dtoUpdateClass) {
         objectMapper.setEntityClass(tEntityClass);
+        this.dtoClass = dtoClass;
+        this.dtoCreateClass = dtoCreateClass;
+        this.dtoUpdateClass = dtoUpdateClass;
     }
 
     @Override
     public List<TDto> findAll() {
-        return objectMapper.convertToDtoList(repository.findAll());
+        return objectMapper.convertToDtoList(repository.findAll(), dtoClass);
     }
 
     @Override
@@ -46,13 +56,18 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity, TDto extends BaseDt
     }
 
     @Override
-    public TDto save(TDto entity) {
-        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)));
+    public TDto create(TCreateDto entity) {
+        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoCreateClass);
+    }
+
+    @Override
+    public TDto update(TUpdateDto entity) {
+        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoUpdateClass);
     }
 
     @Override
     public TDto findById(Long aLong) {
-        return objectMapper.convertToDto(repository.findById(aLong).get());
+        return objectMapper.convertToDto(repository.findById(aLong).get(), dtoClass);
     }
 
     @Override

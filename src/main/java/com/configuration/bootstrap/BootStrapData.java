@@ -10,7 +10,7 @@ import com.configuration.security.domains.Role;
 import com.configuration.security.domains.RoleName;
 import com.configuration.security.domains.User;
 import com.configuration.security.repositorys.IUserRepository;
-import com.springBootApi.Dtos.OwnerCreateDto;
+import com.springBootApi.Dtos.Owners.OwnerCreateDto;
 import com.springBootApi.domains.Customer;
 import com.springBootApi.domains.Product;
 import com.springBootApi.domains.Store;

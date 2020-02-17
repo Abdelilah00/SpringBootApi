@@ -3,7 +3,7 @@
 // developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.springBootApi.Dtos;
+package com.springBootApi.Dtos.Customers;
 
 import com.springBootLibrary.models.BaseDto;
 import lombok.Getter;

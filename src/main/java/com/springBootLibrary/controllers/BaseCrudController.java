@@ -19,10 +19,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends BaseDto> {
+public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends BaseDto, TCreateDto extends BaseDto, TUpdateDto extends BaseDto> {
 
     @Autowired
-    protected IBaseCrudService<TEntity, TDto> service;
+    protected IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> service;
 
     @RequestMapping(method = RequestMethod.GET)
     protected List<TDto> getAll() throws ExecutionException, InterruptedException {
@@ -35,16 +35,16 @@ public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected TDto create(@Valid @RequestBody TDto dto) {
-        return service.save(dto);
+    protected TDto create(@Valid @RequestBody TCreateDto dto) {
+        return service.create(dto);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    protected TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TDto dto) throws UserFriendlyException {
+    protected TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TUpdateDto dto) throws UserFriendlyException {
         if (id != dto.getId())
             throw new UserFriendlyException("Id and model not equals");
 
-        return service.save(dto);
+        return service.update(dto);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

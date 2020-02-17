@@ -3,29 +3,23 @@
 // developed by Abdelilah Dehaoui GitHub : Abdelilah00                         /
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.springBootApi.Dtos;
+package com.springBootApi.Dtos.Products;
 
 import com.springBootLibrary.models.BaseDto;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class OwnerCreateDto extends BaseDto {
+public class ProductDto extends BaseDto {
     @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
-    private String storeName;
+    private String name;
 
-    public OwnerCreateDto(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String storeName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.storeName = storeName;
-    }
+    @NotNull
+    @Min(0)
+    private Long qtyStock;
 }

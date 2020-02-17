@@ -10,45 +10,39 @@ import com.springBootLibrary.models.IdEntity;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @Setter
-public class ModelEntityMapping<TEntity extends IdEntity, TDto extends BaseDto> extends ModelMapper {
+public class ModelEntityMapping<TEntity extends IdEntity> extends ModelMapper {
 
     private Class<TEntity> entityClass;
-    private Class<TDto> dtoClass;
 
-    public List<TDto> convertToDtoList(List<TEntity> entityList) {
-        List<TDto> list = new ArrayList<>();
+    public <T extends BaseDto> List<T> convertToDtoList(List<TEntity> entityList, Class<? extends BaseDto> dtoClass) {
+        List<T> list = new ArrayList<>();
         for (TEntity entity : entityList) {
-            TDto tDtoCompletableFuture = convertToDto(entity);
+            T tDtoCompletableFuture = convertToDto(entity, dtoClass);
             list.add(tDtoCompletableFuture);
         }
         return (list);
     }
 
-    public List<TEntity> convertToEntityList(List<TDto> dtoList) {
+    public <T extends BaseDto> List<TEntity> convertToEntityList(List<T> dtoList) {
         List<TEntity> list = new ArrayList<>();
-        for (TDto tDto : dtoList) {
+        for (T tDto : dtoList) {
             TEntity tEntityCompletableFuture = convertToEntity(tDto);
             list.add(tEntityCompletableFuture);
         }
         return (list);
     }
 
-    /*
-        @Transactional
-    */
-    public TDto convertToDto(@NotNull TEntity entity) throws EntityNotFoundException {
-        /*if (entity.getId() == 0)
-            throw new EntityNotFoundException("Entity Not Found");*/
-        return map(entity, dtoClass);
+    public <T extends BaseDto> T convertToDto(@NotNull TEntity entity, Class<? extends BaseDto> dtoClass) {
+        return map(entity, (Type) dtoClass);
     }
 
-    public TEntity convertToEntity(@NotNull TDto dto) {
+    public <T extends BaseDto> TEntity convertToEntity(@NotNull T dto) {
         return map(dto, entityClass);
     }
 }

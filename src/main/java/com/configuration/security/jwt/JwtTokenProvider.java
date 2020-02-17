@@ -8,6 +8,8 @@ package com.configuration.security.jwt;
 import com.configuration.Exception.CustomException;
 import com.configuration.security.UserDetailsServiceImpl;
 import com.configuration.security.repositorys.IUserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +17,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -66,9 +67,12 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails1 = userDetails.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails1, "", userDetails1.getAuthorities());
+    public Authentication getAuthentication(String token) throws JsonProcessingException {
+        //TODO : get auth from token
+        /*UserDetails userDetails1 = userDetails.loadUserByUsername(getUsername(token));
+        return new UsernamePasswordAuthenticationToken(userDetails1, "", userDetails1.getAuthorities());*/
+        var auth = String.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("auth"));
+        return new ObjectMapper().readValue(auth, Authentication.class);
     }
 
     public String getUsername(String token) {
