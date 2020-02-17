@@ -1,11 +1,13 @@
 package com.springBootApi.Dtos.Products;
 
 import com.springBootLibrary.models.BaseDto;
+import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Data
 public class ProductCreateDto extends BaseDto {
     @NotBlank
     private String name;

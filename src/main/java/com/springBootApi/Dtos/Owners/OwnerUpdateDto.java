@@ -1,9 +1,11 @@
 package com.springBootApi.Dtos.Owners;
 
 import com.springBootLibrary.models.BaseDto;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+@Data
 public class OwnerUpdateDto extends BaseDto {
     @NotBlank
     private String firstName;
