@@ -9,13 +9,16 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public interface IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> {
-    List<TDto> findAll() throws ExecutionException, InterruptedException;
+    @Async
+    CompletableFuture<List<TDto>> findAll() throws ExecutionException, InterruptedException;
 
     List<TDto> findAll(Sort sort);
 
@@ -35,12 +38,16 @@ public interface IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> {
 
     TDto getOne(Long aLong) throws InterruptedException;
 
-    TDto create(TCreateDto dto);
+    @Async
+    CompletableFuture<TDto> create(TCreateDto dto);
 
-    TDto update(TUpdateDto dto);
+    @Async
+    CompletableFuture<TDto> update(TUpdateDto dto);
 
-    TDto findById(Long aLong);
+    @Async
+    CompletableFuture<TDto> findById(Long aLong);
 
+    @Async
     void deleteById(Long aLong);
 
     void delete(TDto entity);

@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Transactional
 public class BaseCrudServiceImpl<TEntity extends BaseEntity,
@@ -41,8 +42,8 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity,
     }
 
     @Override
-    public List<TDto> findAll() {
-        return objectMapper.convertToDtoList(repository.findAll(), dtoClass);
+    public CompletableFuture<List<TDto>> findAll() {
+        return CompletableFuture.completedFuture(objectMapper.convertToDtoList(repository.findAll(), dtoClass));
     }
 
     @Override
@@ -56,18 +57,18 @@ public class BaseCrudServiceImpl<TEntity extends BaseEntity,
     }
 
     @Override
-    public TDto create(TCreateDto entity) {
-        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoCreateClass);
+    public CompletableFuture<TDto> create(TCreateDto entity) {
+        return CompletableFuture.completedFuture(objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoCreateClass));
     }
 
     @Override
-    public TDto update(TUpdateDto entity) {
-        return objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoUpdateClass);
+    public CompletableFuture<TDto> update(TUpdateDto entity) {
+        return CompletableFuture.completedFuture(objectMapper.convertToDto(repository.save(objectMapper.convertToEntity(entity)), dtoUpdateClass));
     }
 
     @Override
-    public TDto findById(Long aLong) {
-        return objectMapper.convertToDto(repository.findById(aLong).get(), dtoClass);
+    public CompletableFuture<TDto> findById(Long aLong) {
+        return CompletableFuture.completedFuture(objectMapper.convertToDto(repository.findById(aLong).get(), dtoClass));
     }
 
     @Override
