@@ -19,32 +19,32 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends BaseDto, TCreateDto extends BaseDto, TUpdateDto extends BaseDto> {
+public abstract class BaseCrudController<TEntity extends IdEntity, TDto extends BaseDto> {
 
     @Autowired
-    protected IBaseCrudService<TEntity, TDto, TCreateDto, TUpdateDto> service;
+    protected IBaseCrudService<TEntity, TDto> service;
 
     @RequestMapping(method = RequestMethod.GET)
     protected List<TDto> getAll() throws ExecutionException, InterruptedException {
-        return service.findAll();
+        return service.findAll().get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    protected TDto getById(@PathVariable(value = "id") long id) throws InterruptedException {
-        return service.findById(id);
+    protected TDto getById(@PathVariable(value = "id") long id) throws InterruptedException, ExecutionException {
+        return service.findById(id).get();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected TDto create(@Valid @RequestBody TCreateDto dto) {
-        return service.create(dto);
+    protected TDto create(@Valid @RequestBody TDto dto) throws ExecutionException, InterruptedException {
+        return service.save(dto).get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    protected TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TUpdateDto dto) throws UserFriendlyException {
+    protected TDto update(@PathVariable(value = "id") long id, @Valid @RequestBody TDto dto) throws UserFriendlyException, ExecutionException, InterruptedException {
         if (id != dto.getId())
             throw new UserFriendlyException("Id and model not equals");
 
-        return service.update(dto);
+        return service.save(dto).get();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
