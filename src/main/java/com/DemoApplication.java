@@ -12,7 +12,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor;
 
 import java.util.concurrent.Executor;
 
@@ -33,7 +32,7 @@ public class DemoApplication {
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("AsyncMethodTest-");
         executor.initialize();
-        return new DelegatingSecurityContextAsyncTaskExecutor(executor);
+        return executor;
     }
 
  /*   @Bean
